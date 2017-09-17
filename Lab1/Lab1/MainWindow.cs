@@ -93,16 +93,10 @@ namespace Lab1
         {
             SDL.SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
             SDL.SDL_RenderClear(renderer);
-                   
+
             SDL.SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
 
-            var axisPoint = new SDL.SDL_Point[2];
-            axisPoint[0].x = windowWidth / 2;
-            axisPoint[0].y = 0;
-            axisPoint[1].x = axisPoint[0].x;
-            axisPoint[1].y = windowHeight;
-
-            SDL.SDL_RenderDrawLines(renderer, axisPoint, axisPoint.Length);
+            DrawAxis();
 
             int pc = windowWidth;
             var points = new SDL.SDL_Point[pc];
@@ -110,12 +104,30 @@ namespace Lab1
             for (int pi = 0; pi < points.Length; pi++)
             {
                 points[pi].x = pi;
-                points[pi].y = windowHeight/2 - (int)(Math.Sin(pi / 200) * 30);
+                points[pi].y = windowHeight / 2 - (int)(Math.Sin(pi / 200) * 30);
             }
 
             SDL.SDL_RenderDrawPoints(renderer, points, points.Length);
 
             SDL.SDL_RenderPresent(renderer);
+        }
+
+        private void DrawAxis()
+        {
+            int halfHeight = windowHeight / 2;
+            int halfWidth = windowWidth / 2;
+            SDL.SDL_RenderDrawLine(renderer, TrX(0), TrY(halfHeight), TrX(0), TrY(-halfHeight));
+            SDL.SDL_RenderDrawLine(renderer, TrX(halfWidth), TrY(0), TrX(-halfWidth), TrY(0));
+        }
+
+        private int TrX(int x)
+        {
+            return windowWidth / 2 + x;
+        }
+
+        private int TrY(int y)
+        {
+            return windowHeight / 2 + y;
         }
     }
 }
