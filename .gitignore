@@ -79,4 +79,5 @@ Desktop.ini
 
 *ncrunch*
 
-# NuGet
+# temporary IDE files
+**/.vs/
