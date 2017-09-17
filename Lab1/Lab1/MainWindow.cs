@@ -15,6 +15,8 @@ namespace Lab1
         private IntPtr window;
         private int windowWidth, windowHeight;
         private double scale;
+        int a = 7;
+        int l = 8;
 
         public MainWindow(int width, int height)
         {
@@ -87,21 +89,20 @@ namespace Lab1
 
             DrawAxis();
 
-            int a = 100;
-            int l = 8;
+            
             double t = 0;
             int pc = windowWidth;
             var previousPoint = new SDL.SDL_Point();
             var nextPoint = new SDL.SDL_Point();
 
-            previousPoint = CalculatePoint(0, a, l);
+            previousPoint = CalculatePoint(0);
 
-            while (t < Math.PI *2)
+            while (t <= Math.PI * 2)
             {
-                nextPoint = CalculatePoint(t, a, l);
+                nextPoint = CalculatePoint(t);
 
                 SDL.SDL_RenderDrawLines(renderer,
-                                    new SDL.SDL_Point[] { previousPoint, nextPoint },
+                                    new [] { previousPoint, nextPoint },
                                     2);
 
                 previousPoint = nextPoint;
@@ -115,6 +116,8 @@ namespace Lab1
         private void UpdateWindowStat()
         {
             SDL.SDL_GetWindowSize(window, out windowWidth, out windowHeight);
+
+            scale = Math.Min(windowHeight, windowWidth) * 0.4 / (a + l);
         }
 
         private void DrawAxis()
@@ -125,7 +128,7 @@ namespace Lab1
             SDL.SDL_RenderDrawLine(renderer, TrX(halfWidth), TrY(0), TrX(-halfWidth), TrY(0));
         }
 
-        private SDL.SDL_Point CalculatePoint(double t, double a, double l)
+        private SDL.SDL_Point CalculatePoint(double t)
         {
             var point = new SDL.SDL_Point();
             point.x = TrX((a * Math.Pow(Math.Cos(t), 2) + l * Math.Cos(t)) * scale);
