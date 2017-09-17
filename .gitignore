@@ -36,7 +36,7 @@
 *.vspx
 
 ## TODO: If you have NuGet Package Restore enabled, uncomment this
-packages/**
+packages/*
 !packages/repositories.config
 
 ##Stop NCrunch bug where it randomly copies dll's and xml files from dependencies to the root of projects
