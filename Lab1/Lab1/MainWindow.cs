@@ -115,9 +115,9 @@ namespace Lab1
             {
                 nextPoint = CalculatePoint(t);
 
-                SDL.SDL_RenderDrawLines(renderer,
-                                    new [] { previousPoint, nextPoint },
-                                    2);
+                SDL.SDL_RenderDrawLine(renderer,
+                                       previousPoint.x, previousPoint.y,
+                                       nextPoint.x, nextPoint.y);
 
                 previousPoint = nextPoint;
             }
@@ -134,7 +134,7 @@ namespace Lab1
         {
             SDL.SDL_GetWindowSize(window, out windowWidth, out windowHeight);
 
-            scale = Math.Min(windowHeight, windowWidth) * 0.4 / (a + l);
+            scale = (Math.Min(windowHeight, windowWidth) / 2) * 0.8 / (a + l);
         }
 
         private void DrawAxis()
