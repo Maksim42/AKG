@@ -68,12 +68,12 @@ namespace Lab1
                                         ChangeParamA(-1);
                                         break;
                                     }
-                                case SDL.SDL_Keycode.SDLK_LEFT:
+                                case SDL.SDL_Keycode.SDLK_RIGHT:
                                     {
                                         ChangeParamL(1);
                                         break;
                                     }
-                                case SDL.SDL_Keycode.SDLK_RIGHT:
+                                case SDL.SDL_Keycode.SDLK_LEFT:
                                     {
                                         ChangeParamL(-1);
                                         break;
