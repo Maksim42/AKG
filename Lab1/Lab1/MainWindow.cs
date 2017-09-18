@@ -11,13 +11,17 @@ namespace Lab1
         private IntPtr window;
         private int windowWidth, windowHeight;
         private double scale;
-        int a = 7;
-        int l = 8;
+        private double timeStep;
+        private int a;
+        private int l;
 
         public MainWindow(int width, int height)
         {
             windowWidth = width;
             windowHeight = height;
+            timeStep = 0.05;
+            a = 7;
+            l = 8;
             scale = 1;
             mainThread = new Thread(MainCycle);
         }
@@ -37,7 +41,6 @@ namespace Lab1
                                           SDL.SDL_WindowFlags.SDL_WINDOW_ALLOW_HIGHDPI |
                                           SDL.SDL_WindowFlags.SDL_WINDOW_RESIZABLE |
                                           SDL.SDL_WindowFlags.SDL_WINDOW_SHOWN);
-            //  var shape = new Shape();
 
             renderer = SDL.SDL_CreateRenderer(window, -1, SDL.SDL_RendererFlags.SDL_RENDERER_ACCELERATED);
 
@@ -78,9 +81,6 @@ namespace Lab1
                                         ChangeParamL(-1);
                                         break;
                                     }
-                                case SDL.SDL_Keycode.SDLK_i:
-                                    // TODO: invert color
-                                    break;
                             }
                             break;
                         }
@@ -96,10 +96,10 @@ namespace Lab1
 
         private void Draw()
         {
-            SDL.SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
+            SDL.SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
             SDL.SDL_RenderClear(renderer);
 
-            SDL.SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+            SDL.SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
 
             UpdateWindowTitle();
             UpdateWindowStat();
@@ -111,7 +111,7 @@ namespace Lab1
 
             previousPoint = CalculatePoint(0);
 
-            for (double t = 0; t <= Math.PI * 2; t += 0.05)
+            for (double t = timeStep; t <= Math.PI * 2; t += timeStep)
             {
                 nextPoint = CalculatePoint(t);
 
