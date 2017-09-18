@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Threading;
 using SDL2;
 
@@ -89,15 +85,12 @@ namespace Lab1
 
             DrawAxis();
 
-            
-            double t = 0;
-            int pc = windowWidth;
             var previousPoint = new SDL.SDL_Point();
             var nextPoint = new SDL.SDL_Point();
 
             previousPoint = CalculatePoint(0);
 
-            while (t <= Math.PI * 2)
+            for (double t = 0; t <= Math.PI * 2; t += 0.05)
             {
                 nextPoint = CalculatePoint(t);
 
@@ -106,8 +99,6 @@ namespace Lab1
                                     2);
 
                 previousPoint = nextPoint;
-
-                t += 0.05;
             }
 
             SDL.SDL_RenderPresent(renderer);
