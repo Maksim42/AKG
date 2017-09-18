@@ -81,6 +81,7 @@ namespace Lab1
 
             SDL.SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
 
+            UpdateWindowTitle();
             UpdateWindowStat();
 
             DrawAxis();
@@ -102,6 +103,11 @@ namespace Lab1
             }
 
             SDL.SDL_RenderPresent(renderer);
+        }
+
+        private void UpdateWindowTitle()
+        {
+            SDL.SDL_SetWindowTitle(window, $"AKG Lab1 (a:{a},l:{l})");
         }
 
         private void UpdateWindowStat()
