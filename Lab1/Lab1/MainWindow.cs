@@ -31,7 +31,7 @@ namespace Lab1
         private void MainCycle()
         {
             SDL.SDL_Init(SDL.SDL_INIT_EVERYTHING);
-            window = SDL.SDL_CreateWindow("AOKG Lab 1",
+            window = SDL.SDL_CreateWindow("AKG Lab1",
                                           100, 100,
                                           windowWidth, windowHeight,
                                           SDL.SDL_WindowFlags.SDL_WINDOW_ALLOW_HIGHDPI |
@@ -58,6 +58,26 @@ namespace Lab1
                             var key = sdlEvent.key;
                             switch (key.keysym.sym)
                             {
+                                case SDL.SDL_Keycode.SDLK_UP:
+                                    {
+                                        ChangeParamA(1);
+                                        break;
+                                    }
+                                case SDL.SDL_Keycode.SDLK_DOWN:
+                                    {
+                                        ChangeParamA(-1);
+                                        break;
+                                    }
+                                case SDL.SDL_Keycode.SDLK_LEFT:
+                                    {
+                                        ChangeParamL(1);
+                                        break;
+                                    }
+                                case SDL.SDL_Keycode.SDLK_RIGHT:
+                                    {
+                                        ChangeParamL(-1);
+                                        break;
+                                    }
                                 case SDL.SDL_Keycode.SDLK_i:
                                     // TODO: invert color
                                     break;
@@ -132,6 +152,24 @@ namespace Lab1
             point.y = TrY((a * Math.Cos(t) * Math.Sin(t) + l * Math.Sin(t)) * scale);
 
             return point;
+        }
+
+        private void ChangeParamA(int delta)
+        {
+            int changed = a + delta;
+            if (changed <= int.MaxValue && changed > 0)
+            {
+                a = changed;
+            }
+        }
+
+        private void ChangeParamL(int delta)
+        {
+            int changed = l + delta;
+            if (changed <= int.MaxValue && changed > 0)
+            {
+                l = changed;
+            }
         }
 
         #region PositionTransforms
