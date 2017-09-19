@@ -134,7 +134,7 @@ namespace Lab1
         {
             SDL.SDL_GetWindowSize(window, out windowWidth, out windowHeight);
 
-            scale = (Math.Min(windowHeight, windowWidth) / 2) * 0.8 / (a + l);
+            scale = (double)(Math.Min(windowHeight, windowWidth) / 2) / 500;
         }
 
         private void DrawAxis()
