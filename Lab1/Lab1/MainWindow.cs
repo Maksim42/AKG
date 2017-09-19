@@ -175,22 +175,12 @@ namespace Lab1
         #region PositionTransforms
         private int TrX(double x)
         {
-            return TrX((int)x);
+            return (int)(windowWidth / 2 + x);
         }
 
         private int TrY(double y)
         {
-            return TrY((int)y);
-        }
-
-        private int TrX(int x)
-        {
-            return windowWidth / 2 + x;
-        }
-
-        private int TrY(int y)
-        {
-            return windowHeight / 2 - y;
+            return (int)(windowHeight / 2 - y);
         }
         #endregion PositionTransforms
     }
