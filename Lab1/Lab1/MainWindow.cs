@@ -141,8 +141,28 @@ namespace Lab1
         {
             int halfHeight = windowHeight / 2;
             int halfWidth = windowWidth / 2;
+            int arrowSize = 4;
+
             SDL.SDL_RenderDrawLine(renderer, TrX(0), TrY(halfHeight), TrX(0), TrY(-halfHeight));
             SDL.SDL_RenderDrawLine(renderer, TrX(halfWidth), TrY(0), TrX(-halfWidth), TrY(0));
+
+            SDL.SDL_Point[] arrow = new SDL.SDL_Point[3];
+
+            arrow[0].x = TrX(-arrowSize);
+            arrow[0].y = TrY(halfHeight - 2 * arrowSize);
+            arrow[1].x = TrX(0);
+            arrow[1].y = TrY(halfHeight);
+            arrow[2].x = TrX(arrowSize);
+            arrow[2].y = TrY(halfHeight - 2 * arrowSize);
+            SDL.SDL_RenderDrawLines(renderer, arrow, arrow.Length);
+
+            arrow[0].x = TrX(halfWidth  - 2 * arrowSize);
+            arrow[0].y = TrY(-arrowSize);
+            arrow[1].x = TrX(halfWidth);
+            arrow[1].y = TrY(0);
+            arrow[2].x = TrX(halfWidth - 2 * arrowSize);
+            arrow[2].y = TrY(arrowSize);
+            SDL.SDL_RenderDrawLines(renderer, arrow, arrow.Length);
         }
 
         private SDL.SDL_Point CalculatePoint(double t)
