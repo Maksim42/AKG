@@ -13,9 +13,11 @@ namespace SecondLab
         private int windowWidth, windowHeight;
         private double scale;
         SDL.SDL_Point[] ArrPoint= new SDL.SDL_Point[5]; //new SDL.SDL_Point[5] ;
-        int Nesting = 9; // Вложенность
-        int Sides = 4;
+
+        double Nesting = 3; // Вложенность
         double a = 0.254;
+        int Sides = 4; //Количество сторон    
+        int R = 200; //Радиус
 
         public GraphicsWindow(int width, int height)
         {
@@ -42,7 +44,7 @@ namespace SecondLab
                                           SDL.SDL_WindowFlags.SDL_WINDOW_ALLOW_HIGHDPI |
                                           SDL.SDL_WindowFlags.SDL_WINDOW_RESIZABLE |
                                           SDL.SDL_WindowFlags.SDL_WINDOW_SHOWN);
-            //  var shape = new Shape();
+           
 
             renderer = SDL.SDL_CreateRenderer(window, -1, SDL.SDL_RendererFlags.SDL_RENDERER_ACCELERATED);
 
@@ -85,15 +87,25 @@ namespace SecondLab
                                     }
                                 case SDL.SDL_Keycode.SDLK_RIGHT:
                                     {
-                                        ChangeParamNesting(1);
+                                        ChangeParamNesting(0.2);
                                         break;
                                     }
                                 case SDL.SDL_Keycode.SDLK_LEFT:
                                     {
-                                        ChangeParamNesting(-1);
+                                        ChangeParamNesting(-0.2);
                                         break;
                                     }
-                                
+                                case SDL.SDL_Keycode.SDLK_1:
+                                    {
+                                        ChangeParamSides(1);
+                                        break;
+                                    }
+                                case SDL.SDL_Keycode.SDLK_2:
+                                    {
+                                        ChangeParamSides(-1);
+                                        break;
+                                    }
+
                             }
                             break;
                         }
@@ -109,9 +121,9 @@ namespace SecondLab
 
         private void Draw()
         {
-            SDL.SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
+            SDL.SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);         
             SDL.SDL_RenderClear(renderer);
-            SDL.SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+            SDL.SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
 
             UpdateWindowTitle();
             UpdateWindowStat();
@@ -158,15 +170,6 @@ namespace SecondLab
             ArrPoint[CurrentCount].x = (int)((1 - a) * (double)(ArrPoint[CurrentCount].x) + a * (double)(ArrPoint[CurrentCount+1].x));
             ArrPoint[CurrentCount].y = (int)((1 - a) * (double)(ArrPoint[CurrentCount].y) + a * (double)(ArrPoint[CurrentCount + 1].y));
         }
-        //Для улитки
-        private void DrawNext()
-        {
-            int halfHeight = windowHeight / 2;
-            int halfWidth = windowWidth / 2;
-            SDL.SDL_RenderDrawLine(renderer, TrX(0), TrY(halfHeight), TrX(0), TrY(-halfHeight));
-            SDL.SDL_RenderDrawLine(renderer, TrX(halfWidth), TrY(0), TrX(-halfWidth), TrY(0));
-        }
-
 
         private void ChangeParamA(double delta)
         {
@@ -176,35 +179,21 @@ namespace SecondLab
                 a = a + delta;
         }
 
-        private void ChangeParamNesting(int delta)
+        private void ChangeParamNesting(double delta)
         {
             if (Nesting > 0) 
                 Nesting = Nesting + delta;
-            if ((Nesting == 0) && (delta > 0))
+            if (((Nesting == 0) || (Nesting < 0) ) && (delta > 0))
                 Nesting = Nesting + delta;
 
         }
 
-        #region PositionTransforms
-        private int TrX(double x)
+        private void ChangeParamSides(int delta)
         {
-            return TrX((int)x);
+            if ((Sides > 3) && (delta < 0))
+                Sides = Sides + delta;
+            if (delta >0)
+                Sides = Sides + delta;
         }
-
-        private int TrY(double y)
-        {
-            return TrY((int)y);
-        }
-
-        private int TrX(int x)
-        {
-            return windowWidth / 2 + x;
-        }
-
-        private int TrY(int y)
-        {
-            return windowHeight / 2 - y;
-        }
-        #endregion PositionTransforms
     }
 }
