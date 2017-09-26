@@ -115,6 +115,10 @@ namespace Lab1
             {
                 nextPoint = CalculatePoint(t);
 
+                //SDL.SDL_RenderDrawPoint(renderer, nextPoint.x, nextPoint.y);
+
+                Select4(previousPoint, nextPoint);
+
                 SDL.SDL_RenderDrawLine(renderer,
                                        previousPoint.x, previousPoint.y,
                                        nextPoint.x, nextPoint.y);
@@ -174,6 +178,18 @@ namespace Lab1
             return point;
         }
 
+        private void Select4(SDL.SDL_Point a, SDL.SDL_Point b)
+        {
+            if ((XrT(a.x) > 0 && YrT(a.y) < 0) && (XrT(b.x) > 0 && YrT(b.y) < 0))
+            {
+                SDL.SDL_SetRenderDrawColor(renderer, 255, 0, 0, 0);
+            }
+            else
+            {
+                SDL.SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
+            }
+        }
+
         private void ChangeParamA(int delta)
         {
             int changed = a + delta;
@@ -201,6 +217,16 @@ namespace Lab1
         private int TrY(double y)
         {
             return (int)(windowHeight / 2 - y);
+        }
+
+        private int XrT(int x)
+        {
+            return x - windowWidth / 2;
+        }
+
+        private int YrT(int y)
+        {
+            return windowHeight / 2 - y;
         }
         #endregion PositionTransforms
     }
