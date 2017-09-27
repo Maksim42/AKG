@@ -12,18 +12,21 @@ namespace SecondLab
         private IntPtr window;
         private int windowWidth, windowHeight;
         private double scale;
-        SDL.SDL_Point[] ArrPoint= new SDL.SDL_Point[5]; //new SDL.SDL_Point[5] ;
-
-        double Nesting = 3; // Вложенность
-        double a = 0.254;
+        SDL.SDL_Point[] ArrPoint ;
+        SDL.SDL_Point StarPoint;
+        double Nesting = 4; // Вложенность
+        double a =0.246; //(Math.Tan(Math.Abs(2*(3.14/4*6)))) / (Math.Tan(Math.Abs(2 * (3.14 / 4 * 6)))+1);
         int Sides = 4; //Количество сторон    
-        int R = 200; //Радиус
+        int R = 250; //Радиус
+        double angle;
+        public Random Rand;
 
         public GraphicsWindow(int width, int height)
         {
             windowWidth = width;
             windowHeight = height;
             scale = 1;
+            Rand = new Random();
             mainThread = new Thread(MainCycle);
         }
 
@@ -53,16 +56,10 @@ namespace SecondLab
             {
                 SDL.SDL_Event sdlEvent;
                 SDL.SDL_PollEvent(out sdlEvent);
-                ArrPoint[0].x = 100;
-                ArrPoint[0].y = 100;
-                ArrPoint[1].x = 100;
-                ArrPoint[1].y = 500;
-                ArrPoint[2].x = 500;
-                ArrPoint[2].y = 500;
-                ArrPoint[3].x = 500;
-                ArrPoint[3].y = 100;
-                ArrPoint[4].x = 100;
-                ArrPoint[4].y = 100;
+
+                StarPoint.x = 300;
+                StarPoint.y = 300;
+
                 switch (sdlEvent.type)
                 {
                     case SDL.SDL_EventType.SDL_QUIT:
@@ -125,16 +122,24 @@ namespace SecondLab
             SDL.SDL_RenderClear(renderer);
             SDL.SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
 
-            UpdateWindowTitle();
+            UpdateWindowTitle();// поправить
             UpdateWindowStat();
 
-       
+            MainCreate();
+            byte[] color = new byte[3];
 
-            SDL.SDL_RenderDrawLines(renderer, ArrPoint, 5);
+            SDL.SDL_RenderDrawLines(renderer, ArrPoint, Sides+1);
             for (int i = 0; i< Nesting; i++)
             {
+                //Rand.NextBytes(color);
+                //SDL.SDL_SetRenderDrawColor(renderer, color[0], color[1], color[2], 255);
+                if ((i+1) == ((int)(10*a)))
+                    SDL.SDL_SetRenderDrawColor(renderer, 255, 45, 201, 255);
+                else
+                    SDL.SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
                 NewPolygon();
-                SDL.SDL_RenderDrawLines(renderer, ArrPoint, 5);
+                Line();
+                //SDL.SDL_RenderDrawLines(renderer, ArrPoint, Sides+1);
             }
 
 
@@ -142,18 +147,93 @@ namespace SecondLab
             SDL.SDL_RenderPresent(renderer);
         }
 
+        private void Line()
+        {
+            
+
+            for (int i = 0; i < Sides; i++)
+            {
+                //Изменение координат
+                int dx = Math.Abs(ArrPoint[i].x - ArrPoint[i + 1].x);
+                int dy = Math.Abs(ArrPoint[i].y - ArrPoint[i + 1].y);
+
+                //Направление приращивания
+                int sx = (ArrPoint[i + 1].x >= ArrPoint[i].x) ? (1) : (-1);
+                int sy = (ArrPoint[i + 1].y >= ArrPoint[i].y) ? (1) : (-1);
+
+                if (dy < dx)
+                {
+                    int d = dy *2 - dx;
+                    int d1 = dy *2;
+                    int d2 = (dy - dx) * 2;
+                    SDL.SDL_RenderDrawPoint(renderer, ArrPoint[i].x , ArrPoint[i].y );
+                    int x = ArrPoint[i].x + sx;
+                    int y = ArrPoint[i].y;
+                    for (int j = 1; j <=dx; j++)
+                    {
+                        if (d > 0)
+                        {
+                            d =d + d2;
+                            y =y + sy;
+                        }
+                        else
+                            d =d + d1;
+                        SDL.SDL_RenderDrawPoint(renderer, x, y);
+                        x =x + sx;
+                    }
+                }
+                else
+                {
+                    int d = dx*2 - dy;
+                    int d1 = dx*2;
+                    int d2 = (dx - dy) * 2;
+                    SDL.SDL_RenderDrawPoint(renderer, ArrPoint[i].x, ArrPoint[i].y);
+                    int x = ArrPoint[i].x;
+                    int y = ArrPoint[i].y + sy;
+                    for (int j = 1; j<=dy; j++)
+                    {
+                        if (d > 0)
+                        {
+                            d =d + d2;
+                            x =x+ sx;
+                        }
+                        else
+                            d =d+ d1;
+                        SDL.SDL_RenderDrawPoint(renderer, x, y);
+                        y =y + sy;
+                    }
+                }
+
+            }
+        }
+
+        private void MainCreate()
+        {
+            ArrPoint = new SDL.SDL_Point[Sides + 1];
+            double z = 0;
+            int i = 0;
+            double angle = 360.0 / Sides;
+            while (i < Sides )
+            {
+                ArrPoint[i].x = StarPoint.x + (int)((Math.Cos(z / 180 * Math.PI) * R));
+                ArrPoint[i].y = StarPoint.y - (int)((Math.Sin(z / 180 * Math.PI) * R));
+                z = z + angle;
+                i++;
+            }
+            ArrPoint[Sides] = ArrPoint[0];
+        }
+
 
         private void UpdateWindowTitle()
         {
-            SDL.SDL_SetWindowTitle(window, $"Second Lab (a:,l:)");
+            
+            SDL.SDL_SetWindowTitle(window, $"Second Lab (u:{a},Angle: {angle},Nesting:{(int)Nesting},Sides{Sides})");
         }
 
      
         private void UpdateWindowStat()
         {
             SDL.SDL_GetWindowSize(window, out windowWidth, out windowHeight);
-
-           // scale = Math.Min(windowHeight, windowWidth) * 0.4 / (a + l);
         }
 
         private void NewPolygon()
@@ -162,7 +242,7 @@ namespace SecondLab
             {
                 NewPoint(i);
             }
-            ArrPoint[4] = ArrPoint[0];
+            ArrPoint[Sides] = ArrPoint[0];
         }
 
         private void NewPoint(int CurrentCount)
@@ -173,10 +253,12 @@ namespace SecondLab
 
         private void ChangeParamA(double delta)
         {
-            if ((delta > 0) && (a<1))
-                a = a + delta;
-            if ((delta < 0) && (a > 0))
-                a = a + delta;
+            angle = Math.Atan((double)a / (1-a));
+            double change = a + delta;
+            if (!(change < 0) && !(change > 1))
+                a = change;
+            //if ((delta < 0) && (a > 0))
+            //    a = a + delta;
         }
 
         private void ChangeParamNesting(double delta)
