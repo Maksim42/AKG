@@ -8,11 +8,9 @@ namespace Lab3
     {
         bool quit;
         private Thread mainThread;
-        private IntPtr renderer;
         private IntPtr window;
         private int windowWidth, windowHeight;
-        private double scale;
-        
+        private WindowContext context;
 
         public MainWindow(int width, int height)
         {
@@ -21,7 +19,6 @@ namespace Lab3
             windowWidth = width;
             windowHeight = height;
            
-            scale = 1;
             mainThread = new Thread(MainCycle);
         }
 
@@ -40,14 +37,14 @@ namespace Lab3
         private void MainCycle()
         {
             SDL.SDL_Init(SDL.SDL_INIT_EVERYTHING);
-            window = SDL.SDL_CreateWindow("AKG Lab1",
+            window = SDL.SDL_CreateWindow("AKG Lab3",
                                           100, 100,
                                           windowWidth, windowHeight,
                                           SDL.SDL_WindowFlags.SDL_WINDOW_ALLOW_HIGHDPI |
                                           SDL.SDL_WindowFlags.SDL_WINDOW_RESIZABLE |
                                           SDL.SDL_WindowFlags.SDL_WINDOW_SHOWN);
 
-            renderer = SDL.SDL_CreateRenderer(window, -1, SDL.SDL_RendererFlags.SDL_RENDERER_ACCELERATED);
+            context = new WindowContext(window, (uint)windowWidth, (uint)windowHeight);
 
             while (!quit)
             {
@@ -58,6 +55,11 @@ namespace Lab3
                     case SDL.SDL_EventType.SDL_QUIT:
                         {
                             quit = true;
+                            break;
+                        }
+                    case SDL.SDL_EventType.SDL_MOUSEBUTTONDOWN:
+                        {
+
                             break;
                         }
                     //case SDL.SDL_EventType.SDL_KEYDOWN:
@@ -79,59 +81,29 @@ namespace Lab3
                 Thread.Sleep(10);
             }
 
-            SDL.SDL_DestroyRenderer(renderer);
+            context.Close();
             SDL.SDL_DestroyWindow(window);
             SDL.SDL_Quit();
         }
 
         private void Draw()
         {
-            SDL.SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
+            context.UpdateParameters();
+            context.Clear();
 
-            SDL.SDL_RenderClear(renderer);
+            SDL.SDL_SetRenderDrawColor(context.Render, 0, 0, 0, 0);
 
-            SDL.SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+            SDL.SDL_RenderDrawLine(context.Render,
+                                    context.TrX(0), context.TrY(0),
+                                    context.TrX(500), context.TrY(50));
 
 
-
-
-            SDL.SDL_RenderPresent(renderer);
+            context.RefreshWindow();
         }
 
         private void UpdateWindowTitle()
         {
             SDL.SDL_SetWindowTitle(window, $"AKG_3");
         }
-
-        private void UpdateWindowStat()
-        {
-            SDL.SDL_GetWindowSize(window, out windowWidth, out windowHeight);
-
-            scale = (double)(Math.Min(windowHeight, windowWidth) / 2) / 500;
-        }
-
-        
-
-        #region PositionTransforms
-        private int TrX(double x)
-        {
-            return (int)(windowWidth / 2 + x);
-        }
-
-        private int TrY(double y)
-        {
-            return (int)(windowHeight / 2 - y);
-        }
-
-        private int XrT(int x)
-        {
-            return x - windowWidth / 2;
-        }
-
-        private int YrT(int y)
-        {
-            return windowHeight / 2 - y;
-        }
-        #endregion PositionTransforms
     }
 }
