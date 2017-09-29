@@ -57,11 +57,11 @@ namespace Lab3
                             quit = true;
                             break;
                         }
-                    case SDL.SDL_EventType.SDL_MOUSEBUTTONDOWN:
-                        {
+                    //case SDL.SDL_EventType.SDL_MOUSEBUTTONDOWN:
+                    //    {
 
-                            break;
-                        }
+                    //        break;
+                    //    }
                     //case SDL.SDL_EventType.SDL_KEYDOWN:
                     //    {
                     //        var key = sdlEvent.key;
@@ -99,11 +99,6 @@ namespace Lab3
 
 
             context.RefreshWindow();
-        }
-
-        private void UpdateWindowTitle()
-        {
-            SDL.SDL_SetWindowTitle(window, $"AKG_3");
         }
     }
 }
