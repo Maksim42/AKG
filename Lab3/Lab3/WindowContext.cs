@@ -9,10 +9,16 @@ namespace Lab3
 {
     class WindowContext
     {
+        /// <summary>
+        /// Window attached to this context
+        /// </summary>
         private IntPtr window;
+        /// <summary>
+        /// SDL render for this context
+        /// </summary>
         private IntPtr winRender;
-        private uint contextWidth;
-        private uint contextHeight;
+        private int contextWidth;
+        private int contextHeight;
         private int windowWidth;
         private int windowHeight;
         private double scale;
@@ -23,16 +29,31 @@ namespace Lab3
         /// <param name="window">Window handler</param>
         /// <param name="width">Context width</param>
         /// <param name="height">Context height</param>
-        public WindowContext(IntPtr window, uint width, uint height)
+        public WindowContext(IntPtr window, int width, int height)
         {
             this.window = window;
-            contextWidth = width;
-            contextHeight = height;
+            contextWidth = Math.Abs(width);
+            contextHeight = Math.Abs(height);
 
             winRender = SDL.SDL_CreateRenderer(window, -1, SDL.SDL_RendererFlags.SDL_RENDERER_ACCELERATED);
         }
 
+        #region Propertys
+        /// <summary>
+        /// Get SDL render curent context
+        /// </summary>
         public IntPtr Render => winRender;
+
+        /// <summary>
+        /// Get context width
+        /// </summary>
+        public int Width => contextWidth;
+
+        /// <summary>
+        /// Get context height
+        /// </summary>
+        public int Height => contextHeight;
+        #endregion Propertys
 
         /// <summary>
         /// Fill all the window with white color
@@ -50,14 +71,10 @@ namespace Lab3
         {
             SDL.SDL_GetWindowSize(window, out windowWidth, out windowHeight);
 
-            if (windowHeight < windowWidth)
-            {
-                scale = (double)windowHeight / contextHeight;
-            }
-            else
-            {
-                scale = (double)windowWidth / contextWidth;
-            }
+            double scaleX = (double)windowWidth / contextWidth;
+            double scaleY = (double)windowHeight / contextHeight;
+
+            scale = Math.Min(scaleX, scaleY);
         }
 
         /// <summary>
@@ -75,6 +92,33 @@ namespace Lab3
         {
             SDL.SDL_DestroyRenderer(winRender);
         }
+
+        #region Painting
+        /// <summary>
+        /// Draw line on render with context cordinate transforms
+        /// </summary>
+        /// <param name="x1">First point X position</param>
+        /// <param name="y1">First point Y position</param>
+        /// <param name="x2">Second point X position</param>
+        /// <param name="y2">Second point Y position</param>
+        public void DrawLine(int x1, int y1, int x2, int y2)
+        {
+            SDL.SDL_RenderDrawLine(winRender,
+                                   TrX(x1), TrY(y1),
+                                   TrX(x2), TrY(y2));
+        }
+
+        /// <summary>
+        /// Draw point on render with context cordinate transforms
+        /// </summary>
+        /// <param name="x">Point X position</param>
+        /// <param name="y">Point Y position</param>
+        public void DrawPoint(int x, int y)
+        {
+            SDL.SDL_RenderDrawPoint(winRender,
+                                    TrX(x), TrY(y));
+        }
+        #endregion Painting
 
         #region Transformations
         /// <summary>
