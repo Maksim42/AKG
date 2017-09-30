@@ -2,11 +2,34 @@
 
 namespace Lab3
 {
+    /// <summary>
+    /// Abstract class for all shapes
+    /// </summary>
     abstract class Shape
     {
+        /// <summary>
+        /// Shape center X position
+        /// </summary>
         public int positionX;
+        /// <summary>
+        /// Shape center Y position
+        /// </summary>
         public int posiitonY;
+        /// <summary>
+        /// Angel on which the shape is rotated
+        /// </summary>
         public double angle;
+        /// <summary>
+        /// Shape width
+        /// </summary>
+        private int width;
+        /// <summary>
+        /// Shape height
+        /// </summary>
+        private int height;
+        /// <summary>
+        /// Context where shape is painting
+        /// </summary>
         private WindowContext conext;
 
         /// <summary>
