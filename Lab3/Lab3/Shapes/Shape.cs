@@ -51,5 +51,19 @@ namespace Lab3
         /// <param name="linkShape">Linked shape</param>
         /// <returns></returns>
         public abstract bool AnimateMove(Shape linkShape);
+
+        /// <summary>
+        /// Transform point from shape coordinates to word coordinate 
+        /// </summary>
+        /// <param name="point">Point in shape coordinate</param>
+        protected Point TransformPoint(Point point)
+        {
+            // Rotate and shift
+            point = new Point(point.x * Math.Cos(angle) - point.y * Math.Sin(angle) + positionX,
+                              point.x * Math.Sin(angle) + point.y * Math.Cos(angle) + positionY);
+
+            //point = new Point();
+            return point;
+        }
     }
 }
