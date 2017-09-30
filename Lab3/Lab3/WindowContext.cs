@@ -97,6 +97,16 @@ namespace Lab3
         /// <summary>
         /// Draw line on render with context cordinate transforms
         /// </summary>
+        /// <param name="p1">First point</param>
+        /// <param name="p2">Second point</param>
+        public void DrawLine(Point p1, Point p2)
+        {
+            DrawLine(p1.x, p1.y, p2.x, p2.y);
+        }
+
+        /// <summary>
+        /// Draw line on render with context cordinate transforms
+        /// </summary>
         /// <param name="x1">First point X position</param>
         /// <param name="y1">First point Y position</param>
         /// <param name="x2">Second point X position</param>
@@ -106,6 +116,15 @@ namespace Lab3
             SDL.SDL_RenderDrawLine(winRender,
                                    TrX(x1), TrY(y1),
                                    TrX(x2), TrY(y2));
+        }
+
+        /// <summary>
+        /// Draw point on render with context cordinate transforms
+        /// </summary>
+        /// <param name="p">Painting point</param>
+        public void DrawPoint(Point p)
+        {
+            DrawPoint(p.x, p.y);
         }
 
         /// <summary>
