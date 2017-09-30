@@ -31,6 +31,10 @@ namespace Lab3
         /// Context where shape is painting
         /// </summary>
         protected WindowContext context;
+        /// <summary>
+        /// Shape points in shape coordinate
+        /// </summary>
+        protected Point[] points;
 
         /// <summary>
         /// Draw form on context
