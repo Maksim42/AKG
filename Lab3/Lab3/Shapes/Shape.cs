@@ -14,7 +14,7 @@ namespace Lab3
         /// <summary>
         /// Shape center Y position
         /// </summary>
-        public int posiitonY;
+        public int positionY;
         /// <summary>
         /// Angel on which the shape is rotated
         /// </summary>
@@ -22,15 +22,15 @@ namespace Lab3
         /// <summary>
         /// Shape width
         /// </summary>
-        private int width;
+        protected int width;
         /// <summary>
         /// Shape height
         /// </summary>
-        private int height;
+        protected int height;
         /// <summary>
         /// Context where shape is painting
         /// </summary>
-        private WindowContext conext;
+        protected WindowContext context;
 
         /// <summary>
         /// Draw form on context
