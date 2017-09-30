@@ -53,13 +53,12 @@ namespace Lab3.Shapes
 
         public override void Draw()
         {
-            context.DrawLine(TransformPoint(points[0]),
-                             TransformPoint(points[1]));
-            context.DrawLine(TransformPoint(points[1]),
-                             TransformPoint(points[2]));
-            context.DrawLine(TransformPoint(points[2]),
-                             TransformPoint(points[3]));
-            context.DrawLine(TransformPoint(points[3]),
+            for (int i = 0; i < points.Length - 1; i++)
+            {
+                context.DrawLine(TransformPoint(points[i]),
+                                 TransformPoint(points[i + 1]));
+            }
+            context.DrawLine(TransformPoint(points[points.Length - 1]),
                              TransformPoint(points[0]));
         }
 
