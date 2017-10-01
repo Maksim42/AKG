@@ -22,6 +22,7 @@ namespace Lab3
         private int windowWidth;
         private int windowHeight;
         private double scale;
+        private int dotLineSegmentLength = 2;
 
         /// <summary>
         /// Create new WindowContext for window
@@ -95,6 +96,85 @@ namespace Lab3
 
         #region Painting
         /// <summary>
+        /// Draw doted line on render with context cordinate transforms
+        /// </summary>
+        /// <param name="p1">First point</param>
+        /// <param name="p2">Second point</param>
+        public void DrawDotedLine(Point p1, Point p2)
+        {
+            DrawDotedLine(p1.x, p1.y, p2.x, p2.y);
+        }
+
+        /// <summary>
+        /// Draw doted line on render with context cordinate transforms
+        /// </summary>
+        /// <remarks>Use modifyed Bresenham's algorithm</remarks>
+        /// <param name="x1">First point X position</param>
+        /// <param name="y1">First point Y position</param>
+        /// <param name="x2">Second point X position</param>
+        /// <param name="y2">Second point Y position</param>
+        public void DrawDotedLine(int x1, int y1, int x2, int y2)
+        {
+            int x = x1;
+            int y = y1;
+            int dx = Math.Abs(x2 - x1);
+            int dy = Math.Abs(y2 - y1);
+            int s1 = Sign(x2 - x1);
+            int s2 = Sign(y2 - y1);
+            bool swap = false;
+            int length = dotLineSegmentLength;
+            bool draw = true;
+
+            if (dy > dx)
+            {
+                int temp = dx;
+                dx = dy;
+                dy = temp;
+                swap = true;
+            }
+
+            int e = 2 * dy - dx;
+
+            for (int i = 1; i <= dx; i++)
+            {
+                length--;
+                if (length == 0)
+                {
+                    draw = !draw;
+                    length = dotLineSegmentLength;
+                }
+                if (draw)
+                {
+                    DrawPoint(x, y);
+                }
+
+                while (e >= 0)
+                {
+                    if (swap)
+                    {
+                        x = x + s1;
+                    }
+                    else
+                    {
+                        y = y + s2;
+                    }
+                    e = e - 2 * dx;
+                }
+
+                if (swap)
+                {
+                    y = y + s2;
+                }
+                else
+                {
+                    x = x + s1;
+                }
+
+                e = e + 2 * dy;
+            }
+        }
+
+        /// <summary>
         /// Draw line on render with context cordinate transforms
         /// </summary>
         /// <param name="p1">First point</param>
@@ -136,6 +216,27 @@ namespace Lab3
         {
             SDL.SDL_RenderDrawPoint(winRender,
                                     TrX(x), TrY(y));
+        }
+
+        /// <summary>
+        /// Get sign of value
+        /// </summary>
+        /// <remarks>System function for DrawDotedLine</remarks>
+        /// <param name="value">Value</param>
+        /// <returns>Sign value</returns>
+        protected int Sign(int value)
+        {
+            if (value < 0)
+            {
+                return -1;
+            }
+
+            if (value > 0)
+            {
+                return 1;
+            }
+
+            return 0;
         }
         #endregion Painting
 
