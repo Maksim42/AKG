@@ -69,5 +69,21 @@ namespace Lab3
             //point = new Point();
             return point;
         }
+
+        /// <summary>
+        /// Transform global coordinates to local shape coordinates
+        /// </summary>
+        /// <param name="point">Point in global coordinates</param>
+        /// <returns>Point in local shape coordinates</returns>
+        protected Point GlobalToLocalTransform(Point point)
+        {
+            double localX = point.x - positionX;
+            double localY = point.y - positionY;
+            point = new Point(localX * Math.Cos(-angle) - localY * Math.Sin(-angle),
+                              localX * Math.Sin(-angle) + localY * Math.Cos(-angle));
+
+            //context.DrawPoint(point);
+            return point;
+        }
     }
 }
