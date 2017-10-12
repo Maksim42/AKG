@@ -96,7 +96,7 @@ namespace Lab3
 
         #region Painting
         /// <summary>
-        /// Draw doted line on render with context cordinate transforms
+        /// Draw doted line on render with context cordinate
         /// </summary>
         /// <param name="p1">First point</param>
         /// <param name="p2">Second point</param>
@@ -106,7 +106,7 @@ namespace Lab3
         }
 
         /// <summary>
-        /// Draw doted line on render with context cordinate transforms
+        /// Draw doted line on render with context cordinate
         /// </summary>
         /// <remarks>Use modifyed Bresenham's algorithm</remarks>
         /// <param name="x1">First point X position</param>
@@ -175,7 +175,7 @@ namespace Lab3
         }
 
         /// <summary>
-        /// Draw line on render with context cordinate transforms
+        /// Draw line on render with context cordinate
         /// </summary>
         /// <param name="p1">First point</param>
         /// <param name="p2">Second point</param>
@@ -185,7 +185,7 @@ namespace Lab3
         }
 
         /// <summary>
-        /// Draw line on render with context cordinate transforms
+        /// Draw line on render with context cordinate
         /// </summary>
         /// <param name="x1">First point X position</param>
         /// <param name="y1">First point Y position</param>
@@ -199,7 +199,7 @@ namespace Lab3
         }
 
         /// <summary>
-        /// Draw point on render with context cordinate transforms
+        /// Draw point on render with context cordinate
         /// </summary>
         /// <param name="p">Painting point</param>
         public void DrawPoint(Point p)
@@ -208,7 +208,7 @@ namespace Lab3
         }
 
         /// <summary>
-        /// Draw point on render with context cordinate transforms
+        /// Draw point on render with context cordinate
         /// </summary>
         /// <param name="x">Point X position</param>
         /// <param name="y">Point Y position</param>
@@ -259,6 +259,36 @@ namespace Lab3
         public int TrY(double y)
         {
             return windowHeight - (int)(windowHeight / 2.0 - (contextHeight / 2.0 - y) * scale);
+        }
+
+        /// <summary>
+        /// Transform point in window coordinate to context cordinate
+        /// </summary>
+        /// <param name="p">Point in window cordinates</param>
+        /// <returns>Point in context cordinates</returns>
+        public Point TrWindowPoint(Point p)
+        {
+            return new Point(XrT(p.x), Yrt(p.y));
+        }
+
+        /// <summary>
+        /// Transform window X position to context X
+        /// </summary>
+        /// <param name="x">Window X position</param>
+        /// <returns>Context X position</returns>
+        public int XrT(double x)
+        {
+            return (int)(contextWidth / 2.0 - (windowWidth / 2.0 - x) / scale);
+        }
+
+        /// <summary>
+        /// Transform window Y position to context Y
+        /// </summary>
+        /// <param name="y">Window Y position</param>
+        /// <returns>Context Y position</returns>
+        public int Yrt(double y)
+        {
+            return (int)(contextHeight / 2.0 - (windowHeight / 2.0 - (windowHeight - y)) / scale);
         }
         #endregion Transformations
     }
