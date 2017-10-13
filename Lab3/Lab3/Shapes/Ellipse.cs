@@ -8,7 +8,16 @@ namespace Lab3.Shapes
 {
     class Ellipse : Shape
     {
-        public Ellipse(WindowContext context, int width, int height, int x, int y)
+        /// <summary>
+        /// Create Ellipse shape
+        /// </summary>
+        /// <param name="context">Window context</param>
+        /// <param name="width">Shape width</param>
+        /// <param name="height">Shape height</param>
+        /// <param name="x">X position on window context</param>
+        /// <param name="y">Y position on window context</param>
+        /// <param name="aproximateStep">Frequency finding ellipse points</param>
+        public Ellipse(WindowContext context, int width, int height, int x, int y, int aproximateStep = 3)
         {
             this.context = context;
             this.height = height;
@@ -21,13 +30,13 @@ namespace Lab3.Shapes
 
             List<Point> tempPoint = new List<Point>();
 
-            for (int i = -halfWidth; i <= halfWidth; i++)
+            for (int i = -halfWidth; i <= halfWidth; i += aproximateStep)
             {
                 tempPoint.Add(new Point(i,
                                         Math.Sqrt((1 - Math.Pow(i,2) / Math.Pow(halfWidth, 2)) * Math.Pow(halfHeight, 2))));
             }
 
-            for (int i = halfWidth; i >= -halfWidth; i--)
+            for (int i = halfWidth; i >= -halfWidth; i -= aproximateStep)
             {
                 tempPoint.Add(new Point(i,
                                         -Math.Sqrt((1 - Math.Pow(i, 2) / Math.Pow(halfWidth, 2)) * Math.Pow(halfHeight, 2))));
