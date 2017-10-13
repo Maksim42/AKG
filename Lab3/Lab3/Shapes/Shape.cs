@@ -42,12 +42,11 @@ namespace Lab3
         public abstract void Draw();
 
         /// <summary>
-        /// Check if the point is inside the shape 
+        /// Check if the point is inside the shape
         /// </summary>
-        /// <param name="x">Point X position</param>
-        /// <param name="y">Point Y position</param>
-        /// <returns></returns>
-        public abstract bool PointIn(int x, int y);
+        /// <param name="p">Checking point</param>
+        /// <returns>True if point in shape</returns>
+        public abstract bool PointIn(Point p);
 
         /// <summary>
         /// Animation shape move to linkShape

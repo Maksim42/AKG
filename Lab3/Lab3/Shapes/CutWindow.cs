@@ -62,7 +62,7 @@ namespace Lab3.Shapes
                              TransformPoint(points[0]));
         }
 
-        public override bool PointIn(int x, int y)
+        public override bool PointIn(Point p)
         {
             throw new NotImplementedException();
         }
