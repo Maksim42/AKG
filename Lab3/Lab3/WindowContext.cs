@@ -268,7 +268,7 @@ namespace Lab3
         /// <returns>Point in context cordinates</returns>
         public Point TrWindowPoint(Point p)
         {
-            return new Point(XrT(p.x), Yrt(p.y));
+            return new Point(XrT(p.x), YrT(p.y));
         }
 
         /// <summary>
@@ -286,7 +286,7 @@ namespace Lab3
         /// </summary>
         /// <param name="y">Window Y position</param>
         /// <returns>Context Y position</returns>
-        public int Yrt(double y)
+        public int YrT(double y)
         {
             return (int)(contextHeight / 2.0 - (windowHeight / 2.0 - (windowHeight - y)) / scale);
         }
