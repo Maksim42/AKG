@@ -22,7 +22,6 @@ namespace Lab3
         private int windowWidth;
         private int windowHeight;
         private double scale;
-        private int dotLineSegmentLength = 2;
 
         /// <summary>
         /// Create new WindowContext for window
@@ -100,9 +99,9 @@ namespace Lab3
         /// </summary>
         /// <param name="p1">First point</param>
         /// <param name="p2">Second point</param>
-        public void DrawDotedLine(Point p1, Point p2)
+        public void DrawDotedLine(Point p1, Point p2, int lineSegmentLength = 2)
         {
-            DrawDotedLine(p1.x, p1.y, p2.x, p2.y);
+            DrawDotedLine(p1.x, p1.y, p2.x, p2.y, lineSegmentLength);
         }
 
         /// <summary>
@@ -113,7 +112,7 @@ namespace Lab3
         /// <param name="y1">First point Y position</param>
         /// <param name="x2">Second point X position</param>
         /// <param name="y2">Second point Y position</param>
-        public void DrawDotedLine(int x1, int y1, int x2, int y2)
+        public void DrawDotedLine(int x1, int y1, int x2, int y2, int lineSegmentLength = 2)
         {
             int x = x1;
             int y = y1;
@@ -122,7 +121,7 @@ namespace Lab3
             int s1 = Sign(x2 - x1);
             int s2 = Sign(y2 - y1);
             bool swap = false;
-            int length = dotLineSegmentLength;
+            int length = lineSegmentLength;
             bool draw = true;
 
             if (dy > dx)
@@ -141,7 +140,7 @@ namespace Lab3
                 if (length == 0)
                 {
                     draw = !draw;
-                    length = dotLineSegmentLength;
+                    length = lineSegmentLength;
                 }
                 if (draw)
                 {
@@ -169,7 +168,6 @@ namespace Lab3
                 {
                     x = x + s1;
                 }
-
                 e = e + 2 * dy;
             }
         }
