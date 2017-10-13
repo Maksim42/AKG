@@ -57,6 +57,16 @@ namespace Lab3
         public abstract bool AnimateMove(Shape linkShape);
 
         /// <summary>
+        /// Move shape to position
+        /// </summary>
+        /// <param name="movePoint">Move position point</param>
+        public void Move(Point movePoint)
+        {
+            positionX = movePoint.x;
+            positionY = movePoint.y;
+        }
+
+        /// <summary>
         /// Transform point from shape coordinates to word coordinate 
         /// </summary>
         /// <param name="point">Point in shape coordinate</param>
