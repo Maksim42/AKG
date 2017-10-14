@@ -64,7 +64,15 @@ namespace Lab3.Shapes
 
         public override bool PointIn(Point p)
         {
-            throw new NotImplementedException();
+            p = GlobalToLocalTransform(p);
+
+            if (p.x <= points[0].x && p.x >= points[2].x &&
+                p.y <= points[0].y && p.y >= points[2].y)
+            {
+                return true;
+            }
+
+            return false;
         }
 
         /// <summary>
