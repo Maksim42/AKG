@@ -10,15 +10,15 @@ namespace Lab3
         /// <summary>
         /// Shape center X position
         /// </summary>
-        public int positionX;
+        protected int positionX;
         /// <summary>
         /// Shape center Y position
         /// </summary>
-        public int positionY;
+        protected int positionY;
         /// <summary>
         /// Angel on which the shape is rotated
         /// </summary>
-        public double angle;
+        protected double angle;
         /// <summary>
         /// Shape width
         /// </summary>
@@ -35,6 +35,25 @@ namespace Lab3
         /// Shape points in shape coordinate
         /// </summary>
         protected Point[] points;
+
+        #region Properties
+        public int X => positionX;
+
+        public int Y => positionY;
+
+        public double Angle
+        {
+            get
+            {
+                return angle;
+            }
+            set
+            {
+                // TODO: max value = 360
+                angle = value;
+            }
+        }
+        #endregion Properties
 
         /// <summary>
         /// Draw form on context
