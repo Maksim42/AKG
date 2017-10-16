@@ -20,7 +20,7 @@ namespace Lab3.Shapes
             Redraw();
         }
 
-        #region Propertys
+        #region Properties
         public int Height
         {
             get => height;
@@ -44,12 +44,7 @@ namespace Lab3.Shapes
                 Redraw();
             }
         }
-        #endregion Propertys
-
-        public override bool AnimateMove(Shape linkShape)
-        {
-            throw new NotImplementedException();
-        }
+        #endregion Properties
 
         public override void Draw()
         {

@@ -37,11 +37,6 @@ namespace Lab3.Shapes
             };
         }
 
-        public override bool AnimateMove(Shape linkShape)
-        {
-            throw new NotImplementedException();
-        }
-
         public override void Draw()
         {
             for (int i = 0; i < points.Length - 1; i++)

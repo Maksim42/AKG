@@ -68,13 +68,6 @@ namespace Lab3
         public abstract bool PointIn(Point p);
 
         /// <summary>
-        /// Animation shape move to linkShape
-        /// </summary>
-        /// <param name="linkShape">Linked shape</param>
-        /// <returns></returns>
-        public abstract bool AnimateMove(Shape linkShape);
-
-        /// <summary>
         /// Move shape to position
         /// </summary>
         /// <param name="movePoint">Move position point</param>
