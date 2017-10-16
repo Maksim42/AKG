@@ -63,17 +63,6 @@ namespace Lab3.Shapes
             points = tempPoint.ToArray();
         }
 
-        public override void Draw()
-        {
-            for (int i = 0; i < points.Length - 1; i++)
-            {
-                context.DrawLine(TransformPoint(points[i]),
-                                 TransformPoint(points[i + 1]));
-            }
-            context.DrawLine(TransformPoint(points[points.Length - 1]),
-                             TransformPoint(points[0]));
-        }
-
         public override bool PointIn(Point p)
         {
             p = GlobalToLocalTransform(p);

@@ -58,7 +58,16 @@ namespace Lab3
         /// <summary>
         /// Draw form on context
         /// </summary>
-        public abstract void Draw();
+        public void Draw()
+        {
+            for (int i = 0; i < points.Length - 1; i++)
+            {
+                context.DrawLine(TransformPoint(points[i]),
+                                 TransformPoint(points[i + 1]));
+            }
+            context.DrawLine(TransformPoint(points[points.Length - 1]),
+                             TransformPoint(points[0]));
+        }
 
         /// <summary>
         /// Check if the point is inside the shape
