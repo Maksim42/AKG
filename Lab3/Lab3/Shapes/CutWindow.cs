@@ -56,23 +56,69 @@ namespace Lab3.Shapes
 
             p1 = GlobalToLocalTransform(p1);
             p2 = GlobalToLocalTransform(p2);
+            double tLower = 0;
+            double tUpper = 1;
+            Point d = p2 - p1;
+            double t;
 
-            Point crossingPoint = null;
-            for (int i = 0; i < points.Length - 1; i++)
+            for (int i = 0; i < points.Length; i++)
             {
-                crossingPoint = LineCrossing(p1, p2, points[i], points[i + 1]);
+                Point sidePoint0 = points[i];
+                Point sidePoint1 = (i < points.Length - 1) ? (points[i + 1])
+                                   : (points[0]);
+                Point n = new Point(sidePoint1.y - sidePoint0.y,
+                                    sidePoint0.x - sidePoint1.x);
+                Point f = sidePoint0;
+                Point w = p1 - f;
+                double dScalar = Point.ScalarMultiplication(d, n);
+                double wScalar = Point.ScalarMultiplication(w, n);
+
+                if (Math.Abs(dScalar) < double.Epsilon)
+                {
+                    if (wScalar < 0)
+                    {
+                        tLower = 2;
+                        break;
+                    }
+                }
+                else
+                {
+                    t = -wScalar / dScalar;
+                    if (dScalar > 0)
+                    {
+                        if (t > 1)
+                        {
+                            tLower = 2;
+                            break;
+                        }
+
+                        tLower = Math.Max(t, tLower);
+                        continue;
+                    }
+                    if (t < 0)
+                    {
+                        tLower = 2;
+                        break;
+                    }
+
+                    tUpper = Math.Min(t, tUpper);
+                }
+            }
+            if (tLower < tUpper)
+            {
+                Point lowerPoint = p1 + (p2 - p1) * tLower;
+                Point upperPoint = p1 + (p2 - p1) * tUpper;
+                context.DrawDotedLine(TransformPoint(p1),
+                                      TransformPoint(lowerPoint));
+                context.DrawLine(TransformPoint(lowerPoint),
+                                 TransformPoint(upperPoint));
+                context.DrawDotedLine(TransformPoint(upperPoint),
+                                      TransformPoint(p2));
+                return;
             }
 
-            if (crossingPoint != null)
-            {
-                context.DrawLine(TransformPoint(p1), TransformPoint(crossingPoint));
-            }
-            else
-            {
-                context.DrawLine(TransformPoint(p1), TransformPoint(p2));
-            }
-
-
+            context.DrawDotedLine(TransformPoint(p1),
+                                  TransformPoint(p2));
 
             //crossingPoint = LineCrossing(p1, p2,
             //                             points[points.Length - 1], points[0]);

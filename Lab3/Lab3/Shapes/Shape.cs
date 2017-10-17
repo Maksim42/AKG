@@ -121,6 +121,7 @@ namespace Lab3
             return !((code1 & code2) != 0);
         }
 
+        //?????????????????????
         /// <summary>
         /// Find crossing point
         /// </summary>
@@ -145,27 +146,9 @@ namespace Lab3
                 p4 = temp;
             }
 
-            double t;
-            int delX = p2.x - p1.x;
-            if (delX != 0)
-            {
-                t = Math.Abs(p3.x - p1.x) / Math.Abs(delX);
-            }
-            else
-            {
-                t = Math.Abs(p3.y - p1.y) / Math.Abs(p2.y - p1.y);
-            }
+            
 
-            if (t > 1 || t < 0)
-            {
-                return null;
-            }
-
-
-            int x = (int)(p1.x + (p2.x - p1.x) * t);
-            int y = (int)(p1.y + (p2.y - p1.y) * t);
-
-            return new Point(x, y);
+            return null;
         }
 
 
