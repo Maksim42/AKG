@@ -58,8 +58,7 @@ namespace Lab3
             }
             set
             {
-                // TODO: max value = 360
-                angle = value;
+                angle = (Math.Abs(value) > 360) ? value - 360 : value; 
             }
         }
 

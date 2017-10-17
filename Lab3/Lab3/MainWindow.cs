@@ -232,7 +232,7 @@ namespace Lab3
             shapesColection = new Dictionary<string, Shape>();
             shapesColection["Ellipse"] = new Shapes.Ellipse(context, 100, 50, 400, 400);
             shapesColection["Trapeze"] = new Shapes.Trapeze(context, 100, 50, 0.4, 100, 100);
-            shapesColection["CutWindow"] = new Shapes.CutWindow(context, 150, 100, 200, 200);
+            shapesColection["CutWindow"] = new Shapes.CutWindow(context, 300, 200, 200, 200);
 
             shapesColection["Ellipse"].CrossingShape = shapesColection["CutWindow"];
             shapesColection["Trapeze"].CrossingShape = shapesColection["Ellipse"];
