@@ -33,8 +33,6 @@ namespace Lab3
         /// Mouse position after click
         /// </summary>
         private Point mousePoint;
-        // Temp color signal for debug
-        private bool signal = false;
 
         public MainWindow(int width, int height)
         {
@@ -148,9 +146,7 @@ namespace Lab3
             else
             {
                 mousedrag = false;
-            }
-            
-            signal = mousedrag;
+            }            
         }
 
         private void MouseMoveHandler(SDL.SDL_Event e)
@@ -217,21 +213,7 @@ namespace Lab3
             context.UpdateParameters();
             context.Clear();
 
-            // Draw signal
-            if (signal)
-            {
-                SDL.SDL_SetRenderDrawColor(context.Render, 0, 255, 0, 0);
-            }
-            else
-            {
-                SDL.SDL_SetRenderDrawColor(context.Render, 255, 0, 0, 0);
-            }
-            context.DrawLine(0, 0, 100, 100);
-
             SDL.SDL_SetRenderDrawColor(context.Render, 0, 0, 0, 0);
-
-            // Draw mouse aim line
-            //context.DrawDotedLine(0, 0, mousePoint.x, mousePoint.y);
 
             // Animation step
             if (animate)
