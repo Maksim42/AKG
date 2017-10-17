@@ -37,6 +37,12 @@ namespace Lab3.Shapes
             };
         }
 
+        public override void DrawLineInShape(Point p1, Point p2)
+        {
+
+        }
+
+
         public override bool PointIn(Point p)
         {
             p = GlobalToLocalTransform(p);

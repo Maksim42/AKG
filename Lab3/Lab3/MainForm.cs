@@ -23,15 +23,15 @@ namespace Lab3
 
         private void MainForm_Shown(object sender, EventArgs e)
         {
-            window.Shown();
+            Hide();
+            Close();
 
-            //Hide();
-            //Close();
+            window.Shown();
         }
 
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            window.Close();
+            //window.Close();
         }
     }
 }

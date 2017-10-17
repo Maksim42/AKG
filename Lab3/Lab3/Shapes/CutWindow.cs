@@ -46,12 +46,44 @@ namespace Lab3.Shapes
         }
         #endregion Properties
 
+        public override void DrawLineInShape(Point p1, Point p2)
+        {
+            if (! LineTrivialVisible(p1, p2))
+            {
+                context.DrawDotedLine(p1, p2);
+                return;
+            }
+
+            p1 = GlobalToLocalTransform(p1);
+            p2 = GlobalToLocalTransform(p2);
+
+            Point crossingPoint = null;
+            for (int i = 0; i < points.Length - 1; i++)
+            {
+                crossingPoint = LineCrossing(p1, p2, points[i], points[i + 1]);
+            }
+
+            if (crossingPoint != null)
+            {
+                context.DrawLine(TransformPoint(p1), TransformPoint(crossingPoint));
+            }
+            else
+            {
+                context.DrawLine(TransformPoint(p1), TransformPoint(p2));
+            }
+
+
+
+            //crossingPoint = LineCrossing(p1, p2,
+            //                             points[points.Length - 1], points[0]);
+        }
+
         public override bool PointIn(Point p)
         {
             p = GlobalToLocalTransform(p);
 
-            if (p.x <= points[0].x && p.x >= points[2].x &&
-                p.y <= points[0].y && p.y >= points[2].y)
+            if (p.x < points[0].x && p.x > points[2].x &&
+                p.y < points[0].y && p.y > points[2].y)
             {
                 return true;
             }

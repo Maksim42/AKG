@@ -35,6 +35,15 @@ namespace Lab3
         /// Shape points in shape coordinate
         /// </summary>
         protected Point[] points;
+        /// <summary>
+        /// Next layer shape
+        /// </summary>
+        protected Shape crossingShape;
+
+        /// <summary>
+        /// For minimalize code magic in Draw 
+        /// </summary>
+        private delegate void LineDrawer(Point p1, Point p2);
 
         #region Properties
         public int X => positionX;
@@ -53,6 +62,17 @@ namespace Lab3
                 angle = value;
             }
         }
+
+        /// <summary>
+        /// Seter for crosingShape
+        /// </summary>
+        public Shape CrossingShape
+        {
+            set
+            {
+                crossingShape = value;
+            }
+        }
         #endregion Properties
 
         /// <summary>
@@ -60,14 +80,128 @@ namespace Lab3
         /// </summary>
         public void Draw()
         {
+            LineDrawer drawLine;
+            if (crossingShape == null)
+            {
+                drawLine = context.DrawLine;
+            }
+            else
+            {
+                drawLine = crossingShape.DrawLineInShape;
+            }
+            
             for (int i = 0; i < points.Length - 1; i++)
             {
-                context.DrawLine(TransformPoint(points[i]),
-                                 TransformPoint(points[i + 1]));
+                drawLine(TransformPoint(points[i]),
+                         TransformPoint(points[i + 1]));
             }
-            context.DrawLine(TransformPoint(points[points.Length - 1]),
-                             TransformPoint(points[0]));
+            drawLine(TransformPoint(points[points.Length - 1]),
+                     TransformPoint(points[0]));
         }
+
+        #region Crossing
+        /// <summary>
+        /// Draw line crossing(or no) this shape
+        /// </summary>
+        /// <param name="p1">First line point</param>
+        /// <param name="p2">Second line point</param>
+        public abstract void DrawLineInShape(Point p1, Point p2);
+
+        /// <summary>
+        /// Trivial check for visible line in shape
+        /// </summary>
+        /// <param name="p1">First line point</param>
+        /// <param name="p2">Second line point</param>
+        /// <returns>False if not fisible in shape</returns>
+        protected bool LineTrivialVisible(Point p1, Point p2)
+        {
+            int code1 = CrosingCode(p1);
+            int code2 = CrosingCode(p2);
+
+            return !((code1 & code2) != 0);
+        }
+
+        /// <summary>
+        /// Find crossing point
+        /// </summary>
+        /// <param name="p1">First point first line</param>
+        /// <param name="p2">Second point first line</param>
+        /// <param name="p3">First point second line</param>
+        /// <param name="p4">Second point second line</param>
+        /// <returns>Crossing point or null if line dont crossing</returns>
+        protected Point LineCrossing(Point p1, Point p2, Point p3, Point p4)
+        {
+            if (p1.x > p2.x)
+            {
+                Point temp = p1;
+                p1 = p2;
+                p2 = temp;
+            }
+
+            if (p3.x > p4.x)
+            {
+                Point temp = p3;
+                p3 = p4;
+                p4 = temp;
+            }
+
+            double t;
+            int delX = p2.x - p1.x;
+            if (delX != 0)
+            {
+                t = Math.Abs(p3.x - p1.x) / Math.Abs(delX);
+            }
+            else
+            {
+                t = Math.Abs(p3.y - p1.y) / Math.Abs(p2.y - p1.y);
+            }
+
+            if (t > 1 || t < 0)
+            {
+                return null;
+            }
+
+
+            int x = (int)(p1.x + (p2.x - p1.x) * t);
+            int y = (int)(p1.y + (p2.y - p1.y) * t);
+
+            return new Point(x, y);
+        }
+
+
+        /// <summary>
+        /// Part of LineTrivialVisible algoritm
+        /// </summary>
+        /// <param name="p">Point for check</param>
+        /// <returns>Specific code for checking visible</returns>
+        private int CrosingCode(Point p)
+        {
+            int result = 0;
+            p = GlobalToLocalTransform(p);
+
+            if (p.x < -(width / 2))
+            {
+                result = result | 1;
+            }
+
+            if (p.x > width / 2)
+            {
+                result = result | 2;
+            }
+
+            if (p.y < -(height / 2))
+            {
+                result = result | 4;
+            }
+
+            if (p.y > (height / 2))
+            {
+                result = result | 8;
+            }
+
+            return result;
+        }
+        #endregion Crossing
 
         /// <summary>
         /// Check if the point is inside the shape

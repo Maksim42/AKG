@@ -63,6 +63,15 @@ namespace Lab3.Shapes
             points = tempPoint.ToArray();
         }
 
+        public override void DrawLineInShape(Point p1, Point p2)
+        {
+            if (!LineTrivialVisible(p1, p2))
+            {
+                crossingShape.DrawLineInShape(p1, p2);
+                return;
+            }
+        }
+
         public override bool PointIn(Point p)
         {
             p = GlobalToLocalTransform(p);
