@@ -231,5 +231,21 @@ namespace Lab3
             //context.DrawPoint(point);
             return point;
         }
+
+        /// <summary>
+        /// Check new size parametr and return corect value
+        /// </summary>
+        /// <param name="curent">Curent parametr value</param>
+        /// <param name="newValue">New parametr value</param>
+        /// <returns></returns>
+        protected int CheckSize(int curent, int newValue)
+        {
+            if ((newValue < 0) || (newValue >= 10000))
+            {
+                return curent;
+            }
+
+            return newValue;
+        }
     }
 }

@@ -44,12 +44,46 @@ namespace Lab3.Shapes
             focus1 = new Point(c, 0);
             focus2 = new Point(-c, 0);
 
+            Redraw(aproximateStep);
+        }
+
+        #region Properties
+        public int Height
+        {
+            get => height;
+
+            set
+            {
+                height = CheckSize(height, value);
+
+                Redraw(3);
+            }
+        }
+
+        public int Width
+        {
+            get => width;
+
+            set
+            {
+                width = CheckSize(width, value);
+
+                Redraw(3);
+            }
+        }
+        #endregion Properties
+
+        private void Redraw(int aproximateStep)
+        {
+            int halfWidth = width / 2;
+            int halfHeight = height / 2;
+
             List<Point> tempPoint = new List<Point>();
 
             for (int i = -halfWidth; i <= halfWidth; i += aproximateStep)
             {
                 tempPoint.Add(new Point(i,
-                                        Math.Sqrt((1 - Math.Pow(i,2) /
+                                        Math.Sqrt((1 - Math.Pow(i, 2) /
                                         Math.Pow(halfWidth, 2)) * Math.Pow(halfHeight, 2))));
             }
 

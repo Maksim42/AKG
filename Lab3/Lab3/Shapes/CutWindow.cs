@@ -138,22 +138,6 @@ namespace Lab3.Shapes
         }
 
         /// <summary>
-        /// Check new size parametr and return corect value
-        /// </summary>
-        /// <param name="curent">Curent parametr value</param>
-        /// <param name="newValue">New parametr value</param>
-        /// <returns></returns>
-        private int CheckSize(int curent, int newValue)
-        {
-            if ((newValue < 0 ) || (newValue >= 10000))
-            {
-                return curent;
-            }
-
-            return newValue;
-        }
-
-        /// <summary>
         /// Redraw point in shape cordinate after change size parametrs
         /// </summary>
         private void Redraw()

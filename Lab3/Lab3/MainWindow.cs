@@ -187,21 +187,26 @@ namespace Lab3
         private void UP_KeyDownHandler()
         {
             ((Shapes.CutWindow)shapesColection["CutWindow"]).Height += 1;
+            ((Shapes.Ellipse)shapesColection["Ellipse"]).Height += 1;
         }
 
         private void DOWN_KeyDownHandler()
         {
             ((Shapes.CutWindow)shapesColection["CutWindow"]).Height -= 1;
+            ((Shapes.Ellipse)shapesColection["Ellipse"]).Height -= 1;
+
         }
 
         private void RIGHT_KeyDownHandler()
         {
             ((Shapes.CutWindow)shapesColection["CutWindow"]).Width += 1;
+            ((Shapes.Ellipse)shapesColection["Ellipse"]).Width += 1;
         }
 
         private void LEFT_KeyDownHandler()
         {
             ((Shapes.CutWindow)shapesColection["CutWindow"]).Width -= 1;
+            ((Shapes.Ellipse)shapesColection["Ellipse"]).Width -= 1;
         }
         #endregion Handlers
 
