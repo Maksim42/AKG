@@ -104,11 +104,26 @@ namespace Lab3
                                             A_KeyDownHandler();
                                             break;
                                         }
-                                    //case SDL.SDL_Keycode.SDLK_UP:
-                                    //    {
-                                    //        ChangeParamA(1);
-                                    //        break;
-                                    //    }
+                                    case SDL.SDL_Keycode.SDLK_UP:
+                                        {
+                                            UP_KeyDownHandler();
+                                            break;
+                                        }
+                                    case SDL.SDL_Keycode.SDLK_DOWN:
+                                        {
+                                            DOWN_KeyDownHandler();
+                                            break;
+                                        }
+                                    case SDL.SDL_Keycode.SDLK_RIGHT:
+                                        {
+                                            RIGHT_KeyDownHandler();
+                                            break;
+                                        }
+                                    case SDL.SDL_Keycode.SDLK_LEFT:
+                                        {
+                                            LEFT_KeyDownHandler();
+                                            break;
+                                        }
 
                                 }
                                 break;
@@ -168,7 +183,27 @@ namespace Lab3
                 animate = !animate;
             }
         }
-    #endregion Handlers
+
+        private void UP_KeyDownHandler()
+        {
+            ((Shapes.CutWindow)shapesColection["CutWindow"]).Height += 1;
+        }
+
+        private void DOWN_KeyDownHandler()
+        {
+            ((Shapes.CutWindow)shapesColection["CutWindow"]).Height -= 1;
+        }
+
+        private void RIGHT_KeyDownHandler()
+        {
+            ((Shapes.CutWindow)shapesColection["CutWindow"]).Width += 1;
+        }
+
+        private void LEFT_KeyDownHandler()
+        {
+            ((Shapes.CutWindow)shapesColection["CutWindow"]).Width -= 1;
+        }
+        #endregion Handlers
 
         /// <summary>
         /// Select shape by context position
