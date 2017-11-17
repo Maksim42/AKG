@@ -187,7 +187,7 @@ namespace SDLWindow
         /// <returns>Window X position</returns>
         public int TrX(double x)
         {
-            return (int)(windowWidth - (contextWidth / 2.0 - x) * scale);
+            return (int)(windowWidth / 2.0 + x * scale);
         }
 
         /// <summary>
@@ -197,7 +197,7 @@ namespace SDLWindow
         /// <returns>Window Y position</returns>
         public int TrY(double y)
         {
-            return windowHeight / 2 - (int)(windowHeight / 2.0 - (contextHeight / 2.0 - y) * scale);
+            return (int)(windowHeight / 2.0 - ( y) * scale);
         }
 
         /// <summary>
@@ -205,6 +205,7 @@ namespace SDLWindow
         /// </summary>
         /// <param name="p">Point in window cordinates</param>
         /// <returns>Point in context cordinates</returns>
+        /// <remarks>!!!!!!!DEPRICATADE!!!!!!!</remarks>
         public Point TrWindowPoint(Point p)
         {
             return new Point(XrT(p.X), YrT(p.Y));
@@ -215,6 +216,7 @@ namespace SDLWindow
         /// </summary>
         /// <param name="x">Window X position</param>
         /// <returns>Context X position</returns>
+        /// <remarks>!!!!!!!DEPRICATADE!!!!!!!</remarks>
         public int XrT(double x)
         {
             return (int)(contextWidth / 2.0 - (windowWidth / 2.0 - x) / scale);
@@ -225,6 +227,7 @@ namespace SDLWindow
         /// </summary>
         /// <param name="y">Window Y position</param>
         /// <returns>Context Y position</returns>
+        /// <remarks>!!!!!!!DEPRICATADE!!!!!!!</remarks>
         public int YrT(double y)
         {
             return (int)(contextHeight / 2.0 - (windowHeight / 2.0 - (windowHeight - y)) / scale);

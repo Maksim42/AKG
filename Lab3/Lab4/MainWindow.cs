@@ -143,24 +143,24 @@ namespace SDLWindow
 
             // Draw WindowContext border
             context.DrawLine(0, 0, 0, context.Height);
-            context.DrawLine(0, context.Height, context.Width, context.Height);
-            context.DrawLine(context.Width, context.Height, context.Width, 0);
+            //context.DrawLine(0, context.Height, context.Width, context.Height);
+            //context.DrawLine(context.Width, context.Height, context.Width, 0);
             context.DrawLine(context.Width, 0, 0, 0);
 
             shape.Draw();
 
             shape.RotateY(0.01);
             shape.RotateX(0.01);
-            shape.RotateZ(0.01);
+            //shape.RotateZ(0.01);
 
             context.RefreshWindow();
         }
 
         private void InitShapes()
         {
-            shape = new SquareDonat();
+            shape = new SquareDonat(50);
 
-            shape.Scale(0.2);
+            //shape.Scale(0.2);
         }
     }
 }

@@ -10,34 +10,47 @@ namespace Shape3
     class SquareDonat
         : Shape3C
     {
-        public SquareDonat()
+        private double h;
+        private double a;
+        private double b;
+
+        public SquareDonat(double h)
             : base()
         {
+            this.h = h;
+            b = 1.5 * h;
+            a = 3 * b;
+
             PointInit();
             LineInit();
         }
 
         private void PointInit()
         {
-            points.Add(new Point(0, 0, 0));
-            points.Add(new Point(0, 7, 0));
-            points.Add(new Point(10, 7, 0));
-            points.Add(new Point(10, 0, 0));
+            double halfA = a / 2;
+            double halfB = b / 2;
+            double halfH = h / 2;
 
-            points.Add(new Point(0, 0, 10));
-            points.Add(new Point(0, 7, 10));
-            points.Add(new Point(10, 7, 10));
-            points.Add(new Point(10, 0, 10));
+            points.Add(new Point(-halfA, -halfH, -halfA));
+            points.Add(new Point(-halfA, halfH, -halfA));
+            points.Add(new Point(halfA, halfH, -halfA));
+            points.Add(new Point(halfA, -halfH, -halfA));
 
-            points.Add(new Point(2.5, 0, 2.5));
-            points.Add(new Point(2.5, 7, 2.5));
-            points.Add(new Point(7.5, 7, 2.5));
-            points.Add(new Point(7.5, 0, 2.5));
+            points.Add(new Point(-halfA, -halfH, halfA));
+            points.Add(new Point(-halfA, halfH, halfA));
+            points.Add(new Point(halfA, halfH, halfA));
+            points.Add(new Point(halfA, -halfH, halfA));
 
-            points.Add(new Point(2.5, 0, 7.5));
-            points.Add(new Point(2.5, 7, 7.5));
-            points.Add(new Point(7, 7, 7.5));
-            points.Add(new Point(7, 0, 7.5));
+            points.Add(new Point(-halfB, -halfH, -halfB));
+            points.Add(new Point(-halfB, halfH, -halfB));
+            points.Add(new Point(halfB, halfH, -halfB));
+            points.Add(new Point(halfB, -halfH, -halfB));
+
+            points.Add(new Point(-halfB, -halfH, halfB));
+            points.Add(new Point(-halfB, halfH, halfB));
+            points.Add(new Point(halfB, halfH, halfB));
+            points.Add(new Point(halfB, -halfH, halfB));
+
         }
 
         private void LineInit()
