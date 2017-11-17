@@ -10,11 +10,26 @@ namespace Shape3
     {
         protected List<Line> lines;
         protected List<Point> points;
+        // local transform matrix
+        protected RotateX rotateX;
+        protected RotateY rotateY;
+        protected RotateZ rotateZ;
+        protected Move move;
+        protected PartScale partScale;
+        protected Scale scale;
 
         protected Shape3C()
         {
             lines = new List<Line>();
             points = new List<Point>();
+
+            // transform matrix initialization
+            rotateX = new RotateX(0);
+            rotateY = new RotateY(0);
+            rotateZ = new RotateZ(0);
+            move = new Move(0, 0, 0);
+            scale = new Scale(1);
+            partScale = new PartScale(1, 1, 1);
         }
 
         /// <summary>
@@ -37,9 +52,13 @@ namespace Shape3
         /// <param name="z">Z shift</param>
         public void Move(double x, double y, double z)
         {
+            move.dx = x;
+            move.dy = y;
+            move.dz = z;
+
             foreach (Point p in points)
             {
-                p.T(new Move(x, y, z));
+                p.T(move);
             }
         }
 
@@ -51,9 +70,13 @@ namespace Shape3
         /// <param name="sz">Z scale</param>
         public void PartScale(double sx, double sy, double sz)
         {
+            partScale.sx = sx;
+            partScale.sy = sy;
+            partScale.sz = sz;
+
             foreach (Point p in points)
             {
-                p.T(new PartScale(sx, sy, sz));
+                p.T(partScale);
             }
         }
 
@@ -63,33 +86,41 @@ namespace Shape3
         /// <param name="scale">Scale</param>
         public void Scale(double scale)
         {
+            this.scale.scale = 1 / scale;
+
             foreach (Point p in points)
             {
-                p.T(new Scale(scale));
+                p.T(this.scale);
             }
         }
 
         public void RotateX(double angle)
         {
+            rotateX.angle = angle;
+
             foreach (Point p in points)
             {
-                p.T(new RotateX(angle));
+                p.T(rotateX);
             }
         }
 
         public void RotateY(double angle)
         {
+            rotateY.angle = angle;
+
             foreach (Point p in points)
             {
-                p.T(new RotateY(angle));
+                p.T(rotateY);
             }
         }
 
         public void RotateZ(double angle)
         {
+            rotateZ.angle = angle;
+
             foreach (Point p in points)
             {
-                p.T(new RotateZ(angle));
+                p.T(rotateZ);
             }
         }
         #endregion Transform
