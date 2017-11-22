@@ -149,9 +149,11 @@ namespace SDLWindow
 
             shape.Draw();
 
-            shape.RotateY(0.01);
-            shape.RotateX(0.01);
-            shape.RotateZ(0.01);
+            shape.xAngle += 0.01;
+            shape.yAngle += 0.01;
+            shape.zAngle += 0.01;
+            //shape.Y += 0.1;
+            //shape.Z += 0.1;
 
             context.RefreshWindow();
         }
