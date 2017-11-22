@@ -154,6 +154,7 @@ namespace SDLWindow
             shape.zAngle += 0.01;
             //shape.Y += 0.1;
             //shape.Z += 0.1;
+            //shape.Scale -= 0.01;
 
             context.RefreshWindow();
         }

@@ -133,6 +133,21 @@ namespace Shape3
         }
         #endregion Rotate propertys
 
+        #region Scale propertys
+        public double Scale
+        {
+            get
+            {
+                return scale.scale;
+            }
+
+            set
+            {
+                scale.scale = value;
+            }
+        }
+        #endregion Scale propertys
+
         /// <summary>
         /// Draw shape in global line context
         /// </summary>
@@ -157,7 +172,8 @@ namespace Shape3
 
                 // transformation
                 transformPoints[i].T(rotateX).T(rotateY).T(rotateZ)
-                                    .T(move);
+                                    .T(move)
+                                    .T(scale);
             }
         }
 
@@ -171,69 +187,5 @@ namespace Shape3
                 transformPoints.Add(new Point());
             }
         }
-
-        #region Transform
-        /// <summary>
-        /// Move shape
-        /// </summary>
-        /// <param name="x">X shift</param>
-        /// <param name="y">Y shift</param>
-        /// <param name="z">Z shift</param>
-        public void Move(double x, double y, double z)
-        {
-            move.dx = x;
-            move.dy = y;
-            move.dz = z;
-
-            foreach (Point p in points)
-            {
-                p.T(move);
-            }
-        }
-
-        /// <summary>
-        /// Scale shape
-        /// </summary>
-        /// <param name="scale">Scale</param>
-        public void Scale(double scale)
-        {
-            this.scale.scale = 1 / scale;
-
-            foreach (Point p in points)
-            {
-                p.T(this.scale);
-            }
-        }
-
-        public void RotateX(double angle)
-        {
-            rotateX.angle = angle;
-
-            foreach (Point p in points)
-            {
-                p.T(rotateX);
-            }
-        }
-
-        public void RotateY(double angle)
-        {
-            rotateY.angle = angle;
-
-            foreach (Point p in points)
-            {
-                p.T(rotateY);
-            }
-        }
-
-        public void RotateZ(double angle)
-        {
-            rotateZ.angle = angle;
-
-            foreach (Point p in points)
-            {
-                p.T(rotateZ);
-            }
-        }
-        #endregion Transform
     }
 }
