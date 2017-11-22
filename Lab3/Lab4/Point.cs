@@ -1,4 +1,6 @@
-﻿namespace SDLGeometry
+﻿using System;
+
+namespace SDLGeometry
 {
     class Point
     {
@@ -7,8 +9,8 @@
         private double z;
         private double h;
 
-        public int X => (int)(x / h);
-        public int Y => (int)(y / h);
+        public int X => (int)Math.Round(x / h);
+        public int Y => (int)Math.Round(y / h);
 
         public Point()
         {
