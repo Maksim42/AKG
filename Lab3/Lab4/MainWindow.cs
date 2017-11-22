@@ -43,7 +43,7 @@ namespace SDLWindow
         private void MainCycle()
         {
             SDL.SDL_Init(SDL.SDL_INIT_EVERYTHING);
-            window = SDL.SDL_CreateWindow("AKG Lab3",
+            window = SDL.SDL_CreateWindow("AKG Lab4",
                                           100, 100,
                                           windowWidth, windowHeight,
                                           SDL.SDL_WindowFlags.SDL_WINDOW_ALLOW_HIGHDPI |
@@ -139,7 +139,7 @@ namespace SDLWindow
 
             SDL.SDL_SetRenderDrawColor(context.Render, 0, 0, 0, 0);
 
-            context.DrawDotedLine(10, 10, 30, 30);
+            //context.DrawDotedLine(10, 10, 30, 30);
 
             // Draw WindowContext border
             context.DrawLine(0, 0, 0, context.Height);
@@ -151,16 +151,18 @@ namespace SDLWindow
 
             shape.RotateY(0.01);
             shape.RotateX(0.01);
-            //shape.RotateZ(0.01);
+            shape.RotateZ(0.01);
 
             context.RefreshWindow();
         }
 
         private void InitShapes()
         {
-            shape = new SquareDonat(50);
+            shape = new SquareDonat(20);
 
-            //shape.Scale(0.2);
+            //shape.PartScale(0.5, 2, 0.5);
+
+            //shape.Move(0, 100, 0);
         }
     }
 }

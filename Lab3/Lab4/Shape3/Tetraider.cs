@@ -9,29 +9,42 @@ namespace Shape3
 {
     class Tetraider : Shape3C
     {
-        public Tetraider()
+        private double halfSide;
+        private double hHeight;
+        private double h;
+
+        public Tetraider(double side)
             : base()
         {
+            halfSide = side / 2;
+            hHeight = (Math.Sqrt(2 / 3.0) * side) / 3.0;
+            double hP = (3 * side) / 2.0;
+            h = (2 * Math.Sqrt(hP * Math.Pow(hP - side, 3))) / side / 3;
+
+            Console.WriteLine(hHeight);
+
             PointInit();
             LineInit();
         }
 
         private void PointInit()
         {
-            points.Add(new Point(5, 10, 5)); // top
-            points.Add(new Point(5, 0, 0));
-            points.Add(new Point(0, 0, 10));
-            points.Add(new Point(10, 0, 10));
+            points.Add(new Point(0, 2 * hHeight, 0)); // top
+            points.Add(new Point(-halfSide, -hHeight, -h));
+            points.Add(new Point(halfSide, -hHeight, -h));
+            points.Add(new Point(0, -hHeight, 2 * h));
+
+            InitTransformPointList();
         }
 
         private void LineInit()
         {
-            lines.Add(new Line(points[0], points[1]));
-            lines.Add(new Line(points[0], points[2]));
-            lines.Add(new Line(points[0], points[3]));
-            lines.Add(new Line(points[1], points[2]));
-            lines.Add(new Line(points[2], points[3]));
-            lines.Add(new Line(points[3], points[1]));
+            lines.Add(new Line(transformPoints[0], transformPoints[1]));
+            lines.Add(new Line(transformPoints[0], transformPoints[2]));
+            lines.Add(new Line(transformPoints[0], transformPoints[3]));
+            lines.Add(new Line(transformPoints[1], transformPoints[2]));
+            lines.Add(new Line(transformPoints[2], transformPoints[3]));
+            lines.Add(new Line(transformPoints[3], transformPoints[1]));
         }
     }
 }

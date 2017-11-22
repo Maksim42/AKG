@@ -10,6 +10,7 @@ namespace Shape3
     {
         protected List<Line> lines;
         protected List<Point> points;
+        protected List<Point> transformPoints;
         // local transform matrix
         protected RotateX rotateX;
         protected RotateY rotateY;
@@ -22,6 +23,7 @@ namespace Shape3
         {
             lines = new List<Line>();
             points = new List<Point>();
+            transformPoints = new List<Point>();
 
             // transform matrix initialization
             rotateX = new RotateX(0);
@@ -37,9 +39,37 @@ namespace Shape3
         /// </summary>
         public void Draw()
         {
+            TransformPoint();
+
             foreach (var line in lines)
             {
                 line.Draw();
+            }
+        }
+
+        /// <summary>
+        /// Transform init points to actual shape state
+        /// </summary>
+        protected void TransformPoint()
+        {
+            for (int i = 0; i < points.Count; i++)
+            {
+                transformPoints[i].Copy(points[i]);
+
+                // transformation
+                rotateZ.angle = 0;
+                transformPoints[i].T(rotateZ);
+            }
+        }
+
+        /// <summary>
+        /// Initialize transform point list
+        /// </summary>
+        protected void InitTransformPointList()
+        {
+            foreach (var p in points)
+            {
+                transformPoints.Add(new Point());
             }
         }
 

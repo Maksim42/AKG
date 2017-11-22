@@ -10,10 +10,18 @@
         public int X => (int)(x / h);
         public int Y => (int)(y / h);
 
+        public Point()
+        {
+            x = 0;
+            y = 0;
+            z = 0;
+            h = 1;
+        }
+
         public Point(double x, double y)
         {
             this.x = (int)x;
-            this.x = (int)y;
+            this.y = (int)y;
             z = 0;
             h = 1;
         }
@@ -61,6 +69,14 @@
             return this;
         }
         #endregion Transformation
+
+        public void Copy(Point p)
+        {
+            x = p.x;
+            y = p.y;
+            z = p.z;
+            h = p.h;
+        }
     }
 
 }

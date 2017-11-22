@@ -51,40 +51,41 @@ namespace Shape3
             points.Add(new Point(halfB, halfH, halfB));
             points.Add(new Point(halfB, -halfH, halfB));
 
+            InitTransformPointList();
         }
 
         private void LineInit()
         {
-            lines.Add(new Line(points[0], points[1]));
-            lines.Add(new Line(points[1], points[2]));
-            lines.Add(new Line(points[2], points[3]));
-            lines.Add(new Line(points[3], points[0]));
+            lines.Add(new Line(transformPoints[0], transformPoints[1]));
+            lines.Add(new Line(transformPoints[1], transformPoints[2]));
+            lines.Add(new Line(transformPoints[2], transformPoints[3]));
+            lines.Add(new Line(transformPoints[3], transformPoints[0]));
 
-            lines.Add(new Line(points[4], points[5]));
-            lines.Add(new Line(points[5], points[6]));
-            lines.Add(new Line(points[6], points[7]));
-            lines.Add(new Line(points[7], points[4]));
+            lines.Add(new Line(transformPoints[4], transformPoints[5]));
+            lines.Add(new Line(transformPoints[5], transformPoints[6]));
+            lines.Add(new Line(transformPoints[6], transformPoints[7]));
+            lines.Add(new Line(transformPoints[7], transformPoints[4]));
 
-            lines.Add(new Line(points[0], points[4]));
-            lines.Add(new Line(points[1], points[5]));
-            lines.Add(new Line(points[2], points[6]));
-            lines.Add(new Line(points[3], points[7]));
+            lines.Add(new Line(transformPoints[0], transformPoints[4]));
+            lines.Add(new Line(transformPoints[1], transformPoints[5]));
+            lines.Add(new Line(transformPoints[2], transformPoints[6]));
+            lines.Add(new Line(transformPoints[3], transformPoints[7]));
 
             // inner 
-            lines.Add(new Line(points[8], points[9]));
-            lines.Add(new Line(points[9], points[10]));
-            lines.Add(new Line(points[10], points[11]));
-            lines.Add(new Line(points[11], points[8]));
+            lines.Add(new Line(transformPoints[8], transformPoints[9]));
+            lines.Add(new Line(transformPoints[9], transformPoints[10]));
+            lines.Add(new Line(transformPoints[10], transformPoints[11]));
+            lines.Add(new Line(transformPoints[11], transformPoints[8]));
 
-            lines.Add(new Line(points[12], points[13]));
-            lines.Add(new Line(points[13], points[14]));
-            lines.Add(new Line(points[14], points[15]));
-            lines.Add(new Line(points[15], points[12]));
+            lines.Add(new Line(transformPoints[12], transformPoints[13]));
+            lines.Add(new Line(transformPoints[13], transformPoints[14]));
+            lines.Add(new Line(transformPoints[14], transformPoints[15]));
+            lines.Add(new Line(transformPoints[15], transformPoints[12]));
 
-            lines.Add(new Line(points[8], points[12]));
-            lines.Add(new Line(points[9], points[13]));
-            lines.Add(new Line(points[10], points[14]));
-            lines.Add(new Line(points[11], points[15]));
+            lines.Add(new Line(transformPoints[8], transformPoints[12]));
+            lines.Add(new Line(transformPoints[9], transformPoints[13]));
+            lines.Add(new Line(transformPoints[10], transformPoints[14]));
+            lines.Add(new Line(transformPoints[11], transformPoints[15]));
         }
     }
 }
