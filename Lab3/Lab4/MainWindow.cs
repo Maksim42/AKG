@@ -162,7 +162,7 @@ namespace SDLWindow
 
         private void InitShapes()
         {
-            shape = new Tetraider(100);
+            shape = new SquareDonat(50);
 
             //shape.PartScale(0.5, 2, 0.5);
 

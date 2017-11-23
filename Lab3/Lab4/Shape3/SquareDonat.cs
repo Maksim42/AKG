@@ -31,6 +31,7 @@ namespace Shape3
             double halfB = b / 2;
             double halfH = h / 2;
 
+            // back
             points.Add(new Point(-halfA, -halfH, -halfA));
             points.Add(new Point(-halfA, halfH, -halfA));
             points.Add(new Point(halfA, halfH, -halfA));
@@ -41,6 +42,7 @@ namespace Shape3
             points.Add(new Point(halfA, halfH, halfA));
             points.Add(new Point(halfA, -halfH, halfA));
 
+            // back
             points.Add(new Point(-halfB, -halfH, -halfB));
             points.Add(new Point(-halfB, halfH, -halfB));
             points.Add(new Point(halfB, halfH, -halfB));
@@ -50,6 +52,8 @@ namespace Shape3
             points.Add(new Point(-halfB, halfH, halfB));
             points.Add(new Point(halfB, halfH, halfB));
             points.Add(new Point(halfB, -halfH, halfB));
+
+            rotator = new Rotator(points[4], points[2]);
 
             InitTransformPointList();
         }
