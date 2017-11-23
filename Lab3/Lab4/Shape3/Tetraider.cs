@@ -21,8 +21,6 @@ namespace Shape3
             double hP = (3 * side) / 2.0;
             h = (2 * Math.Sqrt(hP * Math.Pow(hP - side, 3))) / side / 3;
 
-            Console.WriteLine(hHeight);
-
             PointInit();
             LineInit();
         }
@@ -37,7 +35,6 @@ namespace Shape3
             InitTransformPointList();
 
             rotator = new Rotator(points[0], points[3]);
-            //rotator = new Rotator(new Point(3, 2, 2), new Point(2, 1, 1));
         }
 
         private void LineInit()

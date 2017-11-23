@@ -141,18 +141,16 @@ namespace SDLWindow
 
             //context.DrawDotedLine(10, 10, 30, 30);
 
-            // Draw WindowContext border
+            // Draw axis
             context.DrawLine(0, 0, 0, context.Height);
-            //context.DrawLine(0, context.Height, context.Width, context.Height);
-            //context.DrawLine(context.Width, context.Height, context.Width, 0);
             context.DrawLine(context.Width, 0, 0, 0);
 
             shape.Draw();
 
-            //shape.xAngle += 0.01;
-            //shape.yAngle += 0.01;
-            //shape.zAngle += 0.01;
-            shape.tAngle += 0.01;
+            shape.xAngle += 0.02;
+            shape.yAngle += 0.01;
+            shape.zAngle += 0.008;
+            shape.tAngle += 0.014;
             //shape.Y += 0.1;
             //shape.Z += 0.1;
             //shape.Scale -= 0.01;
@@ -163,10 +161,6 @@ namespace SDLWindow
         private void InitShapes()
         {
             shape = new SquareDonat(50);
-
-            //shape.PartScale(0.5, 2, 0.5);
-
-            //shape.Move(0, 100, 0);
         }
     }
 }

@@ -184,8 +184,8 @@ namespace Shape3
             {
                 transformPoints[i].Copy(points[i]);
 
-
-                Func<double, double> GtR = (g) => g * Math.PI / 180;
+                // Degrees -> Radians
+                //Func<double, double> GtR = (g) => g * Math.PI / 180;
                 //rotateY.angle = GtR(60);
                 //rotateX.angle = GtR(180);
 
