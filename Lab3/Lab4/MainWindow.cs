@@ -27,12 +27,12 @@ namespace SDLWindow
             mainThread.Start();
         }
 
-        // ???
-        public void Shown()
-        {
-            mainThread.Start();
-            mainThread.Join();
-        }
+        //// ???
+        //public void Shown()
+        //{
+        //    mainThread.Start();
+        //    mainThread.Join();
+        //}
 
         public void Close()
         {
@@ -58,8 +58,7 @@ namespace SDLWindow
 
             while (!quit)
             {
-                SDL.SDL_Event sdlEvent;
-                int containEvent = SDL.SDL_PollEvent(out sdlEvent);
+                int containEvent = SDL.SDL_PollEvent(out SDL.SDL_Event sdlEvent);
 
                 if (containEvent == 1)  // Check event pool return event
                 {
@@ -85,6 +84,7 @@ namespace SDLWindow
                                 MouseMoveHandler(sdlEvent);
                                 break;
                             }
+
                         case SDL.SDL_EventType.SDL_KEYDOWN:
                             {
                                 var key = sdlEvent.key;
@@ -95,32 +95,40 @@ namespace SDLWindow
                                             Enter_KeyDownHandler(sdlEvent);
                                             break;
                                         }
-                                        //case SDL.SDL_Keycode.SDLK_a:
-                                        //    {
-                                        //        A_KeyDownHandler();
-                                        //        break;
-                                        //    }
-                                        //case SDL.SDL_Keycode.SDLK_UP:
-                                        //    {
-                                        //        UP_KeyDownHandler();
-                                        //        break;
-                                        //    }
-                                        //case SDL.SDL_Keycode.SDLK_DOWN:
-                                        //    {
-                                        //        DOWN_KeyDownHandler();
-                                        //        break;
-                                        //    }
-                                        //case SDL.SDL_Keycode.SDLK_RIGHT:
-                                        //    {
-                                        //        RIGHT_KeyDownHandler();
-                                        //        break;
-                                        //    }
-                                        //case SDL.SDL_Keycode.SDLK_LEFT:
-                                        //    {
-                                        //        LEFT_KeyDownHandler();
-                                        //        break;
-                                        //    }
+                                    case SDL.SDL_Keycode.SDLK_LCTRL:
+                                        {
+                                            LCtrl_KeyDownHandler();
+                                            break;
+                                        }
+                                    case SDL.SDL_Keycode.SDLK_LALT:
+                                        {
+                                            LAlt_KeyDownHandler();
+                                            break;
+                                        }
+                                    case SDL.SDL_Keycode.SDLK_EQUALS:
+                                        {
+                                            Equals_KeyDownHandler();
+                                            break;
+                                        }
+                                }
+                                break;
+                            }
 
+                        case SDL.SDL_EventType.SDL_KEYUP:
+                            {
+                                var key = sdlEvent.key;
+                                switch (key.keysym.sym)
+                                {
+                                    case SDL.SDL_Keycode.SDLK_LCTRL:
+                                        {
+                                            LCtrl_KeyUpHandler();
+                                            break;
+                                        }
+                                    case SDL.SDL_Keycode.SDLK_LALT:
+                                        {
+                                            LAlt_KeyUpHandler();
+                                            break;
+                                        }
                                 }
                                 break;
                             }
@@ -142,6 +150,8 @@ namespace SDLWindow
         int startX, startY;
         bool mouseDrag = false;
         bool animation = false;
+        bool zRotation = false;
+        bool tRotation = false;
 
         private void MouseButtonDownHandler(SDL.SDL_Event e)
         {
@@ -176,13 +186,26 @@ namespace SDLWindow
         private void MouseMoveHandler(SDL.SDL_Event e)
         {
             var moveEvent = e.motion;
-            int fullWidth, fullHeight;
-            SDL.SDL_GetWindowSize(window, out fullWidth, out fullHeight);
+            SDL.SDL_GetWindowSize(window, out int fullWidth, out int fullHeight);
 
             if (mouseDrag)
-            { 
-                shape.yAngle += rt(startX - moveEvent.x, fullWidth);
-                shape.xAngle += rt(startY - moveEvent.y, fullHeight);
+            {
+                if (!zRotation && !tRotation)
+                {
+                    shape.yAngle += rt(startX - moveEvent.x, fullWidth);
+                    shape.xAngle += rt(startY - moveEvent.y, fullHeight);
+                }
+                else
+                {
+                    if (zRotation)
+                    {
+                        shape.zAngle += rt(startY - moveEvent.y, fullHeight);
+                    }
+                    if (tRotation)
+                    {
+                        shape.tAngle += rt(startX - moveEvent.x, fullWidth);
+                    }
+                }
 
                 startX = moveEvent.x;
                 startY = moveEvent.y;
@@ -200,8 +223,27 @@ namespace SDLWindow
             }
 
             animation = !animation;
-            Console.WriteLine("E");
         }
+
+        private void Equals_KeyDownHandler()
+        {
+            shape.xAngle = 0;
+            shape.yAngle = 0;
+            shape.zAngle = 0;
+            shape.tAngle = 0;
+            shape.X = 0;
+            shape.Y = 0;
+            shape.Z = 0;
+            shape.Scale = 1;
+        }
+
+        // LCtrl key handler
+        private void LCtrl_KeyDownHandler() => zRotation = true;
+        private void LCtrl_KeyUpHandler() => zRotation = false;
+        
+        // LAlt key handler
+        private void LAlt_KeyDownHandler() => tRotation = true;
+        private void LAlt_KeyUpHandler() => tRotation = false;
         #endregion Handlers
 
         private void Draw()
