@@ -140,7 +140,7 @@ namespace Shape3
             if (absAngle > Math.PI * 2)
             {
                 int s = Math.Sign(angle);
-                angle = absAngle - Math.PI * 2;
+                angle = s * (absAngle - Math.PI * 2);
             }
 
             return angle;
