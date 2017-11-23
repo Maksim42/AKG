@@ -35,6 +35,9 @@ namespace Shape3
             points.Add(new Point(0, -hHeight, 2 * h));
 
             InitTransformPointList();
+
+            rotator = new Rotator(points[0], points[3]);
+            //rotator = new Rotator(new Point(3, 2, 2), new Point(2, 1, 1));
         }
 
         private void LineInit()

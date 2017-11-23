@@ -149,9 +149,10 @@ namespace SDLWindow
 
             shape.Draw();
 
-            shape.xAngle += 0.01;
-            shape.yAngle += 0.01;
-            shape.zAngle += 0.01;
+            //shape.xAngle += 0.01;
+            //shape.yAngle += 0.01;
+            //shape.zAngle += 0.01;
+            shape.tAngle += 0.01;
             //shape.Y += 0.1;
             //shape.Z += 0.1;
             //shape.Scale -= 0.01;
@@ -161,7 +162,7 @@ namespace SDLWindow
 
         private void InitShapes()
         {
-            shape = new SquareDonat(20);
+            shape = new Tetraider(100);
 
             //shape.PartScale(0.5, 2, 0.5);
 

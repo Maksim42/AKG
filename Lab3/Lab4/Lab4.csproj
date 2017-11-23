@@ -51,6 +51,7 @@
     <Compile Include="Point.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Rotator.cs" />
     <Compile Include="Shape3\Shape3.cs" />
     <Compile Include="Shape3\SquareDonat.cs" />
     <Compile Include="Shape3\Tetraider.cs" />

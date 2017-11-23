@@ -17,6 +17,7 @@ namespace Shape3
         protected RotateZ rotateZ;
         protected Move move;
         protected Scale scale;
+        protected Rotator rotator;
 
         protected Shape3C()
         {
@@ -114,6 +115,19 @@ namespace Shape3
             }
         }
 
+        public double tAngle
+        {
+            get
+            {
+                return rotator.angle;
+            }
+
+            set
+            {
+                rotator.angle = CheckAngle(value);
+            }
+        }
+
         /// <summary>
         /// Check angle value
         /// </summary>
@@ -171,9 +185,10 @@ namespace Shape3
                 transformPoints[i].Copy(points[i]);
 
                 // transformation
-                transformPoints[i].T(rotateX).T(rotateY).T(rotateZ)
-                                    .T(move)
-                                    .T(scale);
+                rotator.Rotate(transformPoints[i])
+                    .T(rotateX).T(rotateY).T(rotateZ)
+                    .T(move)
+                    .T(scale);
             }
         }
 
