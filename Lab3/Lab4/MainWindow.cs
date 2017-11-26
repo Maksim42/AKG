@@ -211,7 +211,7 @@ namespace SDLWindow
                 startY = moveEvent.y;
             }
         }
-        private Func<double, double, double> rt = (l, f) => (l / f * 8);
+        private Func<double, double, double> rt = (l, f) => (l / f * Math.PI * 2);
 
         private void Enter_KeyDownHandler(SDL.SDL_Event e)
         {
