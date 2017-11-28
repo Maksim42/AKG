@@ -9,6 +9,7 @@ namespace Shape3
     class Shape3C
     {
         protected List<Line> lines;
+        protected List<Surface> surfaces;
         protected List<Point> points;
         protected List<Point> transformPoints;
         // local transform matrix
@@ -22,6 +23,7 @@ namespace Shape3
         protected Shape3C()
         {
             lines = new List<Line>();
+            surfaces = new List<Surface>();
             points = new List<Point>();
             transformPoints = new List<Point>();
 
@@ -163,15 +165,32 @@ namespace Shape3
         #endregion Scale propertys
 
         /// <summary>
-        /// Draw shape in global line context
+        /// Draw shape surfaces
         /// </summary>
         public void Draw()
         {
             TransformPoint();
 
+            // Surfaces???
+            foreach (var surface in surfaces)
+            {
+                surface.Rasterization();
+            }
+        }
+
+        /// <summary>
+        /// Unvalidate line and surface rasters of shape
+        /// </summary>
+        public void Unvalidate()
+        {
             foreach (var line in lines)
             {
-                line.Draw();
+                line.Unvalidate();
+            }
+
+            foreach (var surface in surfaces)
+            {
+                surface.Unvalidate();
             }
         }
 

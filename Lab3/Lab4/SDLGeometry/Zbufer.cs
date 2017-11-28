@@ -11,27 +11,32 @@ namespace SDLGeometry
             bufer = new List<ZbuferItem>();
         }
 
-        public void Add(Point position)
+        public void Add(Point position, double depth)
         {
             var exist = bufer.Find((i) => i.ComparePosition(position));
 
             if (exist == null)
             {
-                bufer.Add(new ZbuferItem(position));
+                bufer.Add(new ZbuferItem(position, depth));
             }
             else
             {
-                exist.SetDepth(position.rX);
+                exist.SetDepth(depth);
             }
         }
 
-        public bool Visible(Point position)
+        /// <summary>
+        /// Check visible for this position
+        /// </summary>
+        /// <param name="position">Cheking posithion</param>
+        /// <returns>Visible</returns>
+        public bool Visible(Point position, double depth)
         {
             var exist = bufer.Find((i) => i.ComparePosition(position));
 
             if (exist != null)
             {
-                return exist.Position.rX <= position.rX;
+                return exist.Depth <= depth;
             }
             else
             {
@@ -39,7 +44,10 @@ namespace SDLGeometry
             }
         }
 
-        public void Unvalidating()
+        /// <summary>
+        /// Unvalidate positions matrix
+        /// </summary>
+        public void Unvalidate()
         {
             foreach(var item in bufer)
             {

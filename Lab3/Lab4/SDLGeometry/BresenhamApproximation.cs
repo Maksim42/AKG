@@ -10,6 +10,12 @@ namespace SDLGeometry
         private int s1, s2;
         private bool swap;
 
+        public BresenhamApproximation(Point p1, Point p2)
+            : this((int)p1.rX, (int)p1.rY, (int)p2.rX, (int)p2.rY)
+        {
+
+        }
+
         public BresenhamApproximation(int x1, int y1, int x2, int y2) {
             x = x1;
             y = y1;

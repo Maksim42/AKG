@@ -6,10 +6,10 @@
         private Point position;
         private double depth;
 
-        public ZbuferItem(Point position)
+        public ZbuferItem(Point position, double depth)
         {
             this.position = new Point(position);
-            depth = position.rZ;
+            this.depth = depth;
             valid = true;
         }
 
@@ -36,7 +36,7 @@
         }
 
         /// <summary>
-        /// Check if position equivalent
+        /// Check if position (in XY) equivalent
         /// </summary>
         /// <param name="p">Another position</param>
         /// <returns>True if position equivalent</returns>

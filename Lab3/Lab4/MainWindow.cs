@@ -53,6 +53,7 @@ namespace SDLWindow
             context = new WindowContext(window, windowWidth, windowHeight);
 
             Line.context = context;
+            Surface.SetContext(context);
 
             InitShapes();
 
@@ -259,6 +260,8 @@ namespace SDLWindow
             context.DrawLine(0, 0, 0, context.Height);
             context.DrawLine(context.Width, 0, 0, 0);
 
+            context.Zbufer.Unvalidate();
+            shape.Unvalidate();
             shape.Draw();
 
             if (animation)
@@ -277,7 +280,7 @@ namespace SDLWindow
 
         private void InitShapes()
         {
-            shape = new SquareDonat(50);
+            shape = new Cube(50);
         }
     }
 }

@@ -21,6 +21,7 @@ namespace SDLWindow
         private int windowWidth;
         private int windowHeight;
         private double scale;
+        private Zbufer zbufer;
 
         /// <summary>
         /// Create new WindowContext for window
@@ -33,6 +34,7 @@ namespace SDLWindow
             this.window = window;
             contextWidth = Math.Abs(width);
             contextHeight = Math.Abs(height);
+            zbufer = new Zbufer();
 
             winRender = SDL.SDL_CreateRenderer(window, -1, SDL.SDL_RendererFlags.SDL_RENDERER_ACCELERATED);
         }
@@ -52,6 +54,11 @@ namespace SDLWindow
         /// Get context height
         /// </summary>
         public int Height => contextHeight;
+
+        /// <summary>
+        /// Get Z-bufer
+        /// </summary>
+        public Zbufer Zbufer => zbufer;
         #endregion Propertys
 
         /// <summary>
