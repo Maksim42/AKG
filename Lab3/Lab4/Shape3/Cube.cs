@@ -52,7 +52,6 @@ namespace Shape3
             lines.Add(new Line(transformPoints[5], transformPoints[6])); // 5
             lines.Add(new Line(transformPoints[6], transformPoints[7])); // 6
             lines.Add(new Line(transformPoints[7], transformPoints[4])); // 7
-
             // midle
             lines.Add(new Line(transformPoints[0], transformPoints[4])); // 8
             lines.Add(new Line(transformPoints[1], transformPoints[5])); // 9
@@ -93,6 +92,41 @@ namespace Shape3
             s.AddBorder(lines[9]);
             s.AddLine(lines[8]);
             s.AddLine(lines[9]);
+            s.AddLine(lines[0]);
+            s.AddLine(lines[4]);
+            // midle left
+            s = new Surface();
+            surfaces.Add(s);
+            s.AddBorder(lines[10]);
+            s.AddBorder(lines[11]);
+            s.AddBorder(lines[2]);
+            s.AddBorder(lines[6]);
+            s.AddLine(lines[10]);
+            s.AddLine(lines[11]);
+            s.AddLine(lines[2]);
+            s.AddLine(lines[6]);
+            // midle up
+            s = new Surface();
+            surfaces.Add(s);
+            s.AddBorder(lines[8]);
+            s.AddBorder(lines[11]);
+            s.AddBorder(lines[3]);
+            s.AddBorder(lines[7]);
+            s.AddLine(lines[11]);
+            s.AddLine(lines[8]);
+            s.AddLine(lines[7]);
+            s.AddLine(lines[3]);
+            // midle down
+            s = new Surface();
+            surfaces.Add(s);
+            s.AddBorder(lines[9]);
+            s.AddBorder(lines[10]);
+            s.AddBorder(lines[1]);
+            s.AddBorder(lines[5]);
+            s.AddLine(lines[10]);
+            s.AddLine(lines[9]);
+            s.AddLine(lines[5]);
+            s.AddLine(lines[1]);
         }
     }
 }

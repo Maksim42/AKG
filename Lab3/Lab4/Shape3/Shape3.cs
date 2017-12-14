@@ -176,9 +176,9 @@ namespace Shape3
                 surface.Rasterization();
             }
 
-            foreach (var surface in surfaces)
+            foreach (var line in lines)
             {
-                surface.Draw();
+                line.Draw();
             }
         }
 

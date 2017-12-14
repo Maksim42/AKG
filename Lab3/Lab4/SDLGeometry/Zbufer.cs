@@ -63,7 +63,7 @@ namespace SDLGeometry
 
             TransformPosition(p, out int x, out int y);
 
-            double eps = 0.5;
+            double eps = double.Epsilon;
 
             if (bufer[y, x] >= depth - eps || bufer[y, x] >= depth + eps)
             {

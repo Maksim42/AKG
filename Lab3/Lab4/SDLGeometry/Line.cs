@@ -19,6 +19,9 @@ namespace SDLGeometry
         private bool valid;
         public bool draw;
         private List<Point> raster;
+        private List<Surface> attachedSurfaces;
+
+        const int visibleLength = 3;
 
         public Line(Point p1, Point p2)
         {
@@ -28,6 +31,7 @@ namespace SDLGeometry
             draw = false;
 
             raster = new List<Point>();
+            attachedSurfaces = new List<Surface>();
         }
 
         public Point P1 => p1;
@@ -56,6 +60,11 @@ namespace SDLGeometry
             return raster;
         }
 
+        public void AttachSurface(Surface surface)
+        {
+            attachedSurfaces.Add(surface);
+        }
+
         /// <summary>
         /// Unvalidate line raster
         /// </summary>
@@ -70,27 +79,52 @@ namespace SDLGeometry
         /// </summary>
         public void Draw()
         {
-            context.DrawLine(p1, p2);
+            //context.DrawLine(p1, p2);
 
-            //var raster = Rasterization();
-            //bool visibleCount = true;
+            int visibleCount = 0;
+            bool visible = false;
 
-            //foreach (var p in raster)
-            //{
-            //    if (context.Zbufer.Visible(p, 0))
-            //    {
-            //        context.DrawPoint(p);
-            //    }
-            //    else
-            //    {
-            //        if (visibleCount)
-            //        {
-            //            context.DrawPoint(p);
-            //        }
 
-            //        visibleCount = !visibleCount;
-            //    }
-            //}
+            foreach (var p in raster)
+            {
+                var dep = Depth(p);
+
+                if (context.Zbufer.Visible(p, dep))
+                {
+                    context.DrawPoint(p);
+                }
+                else
+                {
+                    visibleCount += 1;
+                    if (visibleCount >= visibleLength)
+                    {
+                        visible = !visible;
+                        visibleCount = 0;
+                    }
+
+                    if (visible)
+                    {
+                        context.DrawPoint(p);
+                    }
+                }
+            }
+        }
+
+        private double Depth(Point p)
+        {
+            double result = attachedSurfaces[0].CalculateDepth(p);
+
+            foreach (var surface in attachedSurfaces)
+            {
+                double z = surface.CalculateDepth(p);
+
+                if (z < result)
+                {
+                    result = z;
+                }
+            }
+
+            return result;
         }
     }
 }
