@@ -77,25 +77,25 @@ namespace SDLGeometry
         }
 
         // ?????
-        public void Draw()
-        {
-            var linePoints = new List<Point>();
-            Point[] linePointsCopy;
+        //public void Draw()
+        //{
+        //    var linePoints = new List<Point>();
+        //    Point[] linePointsCopy;
 
-            foreach (var line in lines)
-            {
-                if (!line.draw)
-                {
-                    linePoints.AddRange(line.Rasterization());
-                    line.draw = true;
-                }
-            }
+        //    foreach (var line in lines)
+        //    {
+        //        if (!line.draw)
+        //        {
+        //            linePoints.AddRange(line.Rasterization());
+        //            line.draw = true;
+        //        }
+        //    }
 
-            linePointsCopy = new Point[linePoints.Count];
-            linePoints.CopyTo(linePointsCopy);
+        //    linePointsCopy = new Point[linePoints.Count];
+        //    linePoints.CopyTo(linePointsCopy);
 
-            DrawLines(linePointsCopy);
-        }
+        //    DrawLines(linePointsCopy);
+        //}
 
         /// <summary>
         /// Fill z-bufer
@@ -116,7 +116,9 @@ namespace SDLGeometry
                     var dep = CalculateDepth(p);
 
                     context.Zbufer.Add(p, dep);
-                    return;
+
+                    borderPoints.Remove(p);
+                    continue;
                 }
 
                 inlinePoints.Sort((p1, p2) =>
@@ -135,8 +137,8 @@ namespace SDLGeometry
                     var dep = CalculateDepth(p);
 
                     context.Zbufer.Add(p, dep);
-                    // --TEMP--
-                    context.DrawPoint(p);
+                    // --FILL--
+                    //context.DrawPoint(p);
                 }
 
                 borderPoints.RemoveAll((p) => inlinePoints.Contains(p));
@@ -185,35 +187,35 @@ namespace SDLGeometry
         }
 
         // ?????
-        private void DrawLines(Point[] borderPoint)
-        {
-            int visibleCount = 0;
-            bool visible = false;
+        //private void DrawLines(Point[] borderPoint)
+        //{
+        //    int visibleCount = 0;
+        //    bool visible = false;
             
             
-            //foreach (var p in borderPoint)
-            //{
-            //    var dep = CalculateDepth(p);
+        //    //foreach (var p in borderPoint)
+        //    //{
+        //    //    var dep = CalculateDepth(p);
 
-            //    if (context.Zbufer.Visible(p, dep))
-            //    {
-            //        context.DrawPoint(p);
-            //    }
-            //    else
-            //    {
-            //        visibleCount += 1;
-            //        if (visibleCount >= visibleLength)
-            //        {
-            //            visible = !visible;
-            //            visibleCount = 0;
-            //        }
+        //    //    if (context.Zbufer.Visible(p, dep))
+        //    //    {
+        //    //        context.DrawPoint(p);
+        //    //    }
+        //    //    else
+        //    //    {
+        //    //        visibleCount += 1;
+        //    //        if (visibleCount >= visibleLength)
+        //    //        {
+        //    //            visible = !visible;
+        //    //            visibleCount = 0;
+        //    //        }
 
-            //        if (visible)
-            //        {
-            //            context.DrawPoint(p);
-            //        }
-            //    }
-            //}
-        }
+        //    //        if (visible)
+        //    //        {
+        //    //            context.DrawPoint(p);
+        //    //        }
+        //    //    }
+        //    //}
+        //}
     }
 }
