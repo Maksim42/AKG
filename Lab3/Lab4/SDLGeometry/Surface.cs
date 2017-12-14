@@ -12,12 +12,16 @@ namespace SDLGeometry
         private static WindowContext context;
 
         private List<Line> borders;
-        private bool valid;
+        private List<Line> lines;
+        private bool valid; // ???
+        // Surface index
+        private double a, b, c, d;
 
         public Surface()
         {
             valid = false;
             borders = new List<Line>();
+            lines = new List<Line>();
         }
 
         public static void SetContext(WindowContext context)
@@ -28,6 +32,11 @@ namespace SDLGeometry
         public void AddBorder(Line border)
         {
             borders.Add(border);
+        }
+
+        public void AddLine(Line line)
+        {
+            lines.Add(line);
         }
 
         public void Unvalidate()
@@ -53,11 +62,37 @@ namespace SDLGeometry
 
             Fill(borderPoints);
 
-            DrawBorder(borderPointsCopy);
+            //DrawBorder(borderPointsCopy);
         }
 
+        public void Draw()
+        {
+            var linePoints = new List<Point>();
+            Point[] linePointsCopy;
+
+            foreach (var line in lines)
+            {
+                if (!line.draw)
+                {
+                    linePoints.AddRange(line.Rasterization());
+                    line.draw = true;
+                }
+            }
+
+            linePointsCopy = new Point[linePoints.Count];
+            linePoints.CopyTo(linePointsCopy);
+
+            DrawLines(linePointsCopy);
+        }
+
+        /// <summary>
+        /// Fill z-bufer
+        /// </summary>
+        /// <param name="borderPoints">Border points</param>
         private void Fill(List<Point> borderPoints)
         {
+            CalculateIndex();
+
             while (borderPoints.Count > 0)
             {
                 Point curent = borderPoints[0];
@@ -77,7 +112,9 @@ namespace SDLGeometry
 
                 foreach (var p in brezenhem)
                 {
-                    context.Zbufer.Add(p, 0);
+                    var dep = CalculateDepth(p);
+
+                    context.Zbufer.Add(p, dep);
                     // --TEMP--
                     //context.DrawPoint(p);
                 }
@@ -86,15 +123,64 @@ namespace SDLGeometry
             }
         }
 
-        private void DrawBorder(Point[] borderPoint)
+        /// <summary>
+        /// Calculate surface expression index
+        /// </summary>
+        private void CalculateIndex()
+        {
+            Point p1 = borders[0].P1;
+            Point p2 = borders[0].P2;
+
+            Point p3 = null;
+
+            for (int i = 1; i < borders.Count; i++)
+            {
+                if (borders[i].P1 != p1 && borders[i].P1 != p2)
+                {
+                    p3 = borders[i].P1;
+                    break;
+                }
+
+                if (borders[i].P2 != p1 && borders[i].P2 != p2)
+                {
+                    p3 = borders[i].P2;
+                    break;
+                }
+            }
+
+            if (p3 == null)
+            {
+                throw new Exception("Не найдено 3 точек в плоскости");
+            }
+
+            a = p1.rY * (p2.rZ - p3.rZ) + p2.rY * (p3.rZ - p1.rZ) +
+                p3.rY * (p1.rZ - p2.rZ);
+            b = p1.rZ * (p2.rX - p3.rX) + p2.rZ * (p3.rX - p1.rX) +
+                p3.rZ * (p1.rX - p2.rX);
+            c = p1.rX * (p2.rY - p3.rY) + p2.rX * (p3.rY - p1.rY) +
+                p3.rX * (p1.rY - p2.rY);
+            d = -(p1.rX * (p2.rY * p3.rZ - p3.rY * p2.rZ) +
+                p2.rX * (p3.rY * p1.rZ - p1.rY * p3.rZ) +
+                p3.rX * (p1.rY * p2.rZ - p2.rY * p1.rZ));
+        }
+
+        private double CalculateDepth(Point p)
+        {
+            return (p.rX * a + p.rY * b + d) / -c;
+        }
+
+        // TODO: check if line drawing
+        private void DrawLines(Point[] borderPoint)
         {
             int visibleCount = 0;
             bool visible = false;
-            const int visibleLength = 3;
+            const int visibleLength = 6;
             
             foreach (var p in borderPoint)
             {
-                if (context.Zbufer.Visible(p, 0))
+                var dep = CalculateDepth(p);
+
+                if (context.Zbufer.Visible(p, dep))
                 {
                     context.DrawPoint(p);
                 }
@@ -104,6 +190,7 @@ namespace SDLGeometry
                     if (visibleCount >= visibleLength)
                     {
                         visible = !visible;
+                        visibleCount = 0;
                     }
 
                     if (visible)

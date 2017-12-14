@@ -17,7 +17,7 @@ namespace SDLGeometry
         private Point p1;
         private Point p2;
         private bool valid;
-        private bool draw;
+        public bool draw;
         private List<Point> raster;
 
         public Line(Point p1, Point p2)
@@ -70,27 +70,27 @@ namespace SDLGeometry
         /// </summary>
         public void Draw()
         {
-            //context.DrawLine(p1, p2);
+            context.DrawLine(p1, p2);
 
-            var raster = Rasterization();
-            bool visibleCount = true;
+            //var raster = Rasterization();
+            //bool visibleCount = true;
 
-            foreach (var p in raster)
-            {
-                if (context.Zbufer.Visible(p, 0))
-                {
-                    context.DrawPoint(p);
-                }
-                else
-                {
-                    if (visibleCount)
-                    {
-                        context.DrawPoint(p);
-                    }
+            //foreach (var p in raster)
+            //{
+            //    if (context.Zbufer.Visible(p, 0))
+            //    {
+            //        context.DrawPoint(p);
+            //    }
+            //    else
+            //    {
+            //        if (visibleCount)
+            //        {
+            //            context.DrawPoint(p);
+            //        }
 
-                    visibleCount = !visibleCount;
-                }
-            }
+            //        visibleCount = !visibleCount;
+            //    }
+            //}
         }
     }
 }

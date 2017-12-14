@@ -70,6 +70,18 @@ namespace SDLGeometry
             return $"[{x} {y} {z} {h}]";
         }
 
+        public override bool Equals(object obj)
+        {
+            var p = obj as Point;
+
+            if (p == null)
+            {
+                return false;
+            }
+
+            return (x == p.rX && y == p.rY && z == p.rZ);
+        }
+
         #region Operations
         public static Point operator +(Point p1, Point p2)
         {

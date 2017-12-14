@@ -171,10 +171,14 @@ namespace Shape3
         {
             TransformPoint();
 
-            // Surfaces???
             foreach (var surface in surfaces)
             {
                 surface.Rasterization();
+            }
+
+            foreach (var surface in surfaces)
+            {
+                surface.Draw();
             }
         }
 

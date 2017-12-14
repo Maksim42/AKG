@@ -34,7 +34,7 @@ namespace SDLWindow
             this.window = window;
             contextWidth = Math.Abs(width);
             contextHeight = Math.Abs(height);
-            zbufer = new Zbufer();
+            zbufer = new Zbufer(height, width);
 
             winRender = SDL.SDL_CreateRenderer(window, -1, SDL.SDL_RendererFlags.SDL_RENDERER_ACCELERATED);
         }

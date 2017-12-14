@@ -53,22 +53,46 @@ namespace Shape3
             lines.Add(new Line(transformPoints[6], transformPoints[7])); // 6
             lines.Add(new Line(transformPoints[7], transformPoints[4])); // 7
 
-            // back
-            lines.Add(new Line(transformPoints[0], transformPoints[4]));
-            lines.Add(new Line(transformPoints[1], transformPoints[5]));
-            lines.Add(new Line(transformPoints[2], transformPoints[6]));
-            lines.Add(new Line(transformPoints[3], transformPoints[7]));
+            // midle
+            lines.Add(new Line(transformPoints[0], transformPoints[4])); // 8
+            lines.Add(new Line(transformPoints[1], transformPoints[5])); // 9
+            lines.Add(new Line(transformPoints[2], transformPoints[6])); // 10
+            lines.Add(new Line(transformPoints[3], transformPoints[7])); // 11
         }
 
         private void SurfaceInit()
         {
+            // front
             Surface s = new Surface();
             surfaces.Add(s);
             s.AddBorder(lines[0]);
             s.AddBorder(lines[1]);
             s.AddBorder(lines[2]);
             s.AddBorder(lines[3]);
-
+            s.AddLine(lines[0]);
+            s.AddLine(lines[1]);
+            s.AddLine(lines[2]);
+            s.AddLine(lines[3]);
+            // back
+            s = new Surface();
+            surfaces.Add(s);
+            s.AddBorder(lines[4]);
+            s.AddBorder(lines[5]);
+            s.AddBorder(lines[6]);
+            s.AddBorder(lines[7]);
+            s.AddLine(lines[4]);
+            s.AddLine(lines[5]);
+            s.AddLine(lines[6]);
+            s.AddLine(lines[7]);
+            // midle right
+            s = new Surface();
+            surfaces.Add(s);
+            s.AddBorder(lines[0]);
+            s.AddBorder(lines[4]);
+            s.AddBorder(lines[8]);
+            s.AddBorder(lines[9]);
+            s.AddLine(lines[8]);
+            s.AddLine(lines[9]);
         }
     }
 }
