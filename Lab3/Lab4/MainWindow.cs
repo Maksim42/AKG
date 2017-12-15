@@ -280,7 +280,7 @@ namespace SDLWindow
 
         private void InitShapes()
         {
-            shape = new Cube(50);
+            shape = new SquareDonat(50);
         }
     }
 }

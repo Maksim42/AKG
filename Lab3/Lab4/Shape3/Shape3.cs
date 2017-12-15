@@ -9,6 +9,7 @@ namespace Shape3
     class Shape3C
     {
         protected List<Line> lines;
+        protected List<Line> invisibleLines;
         protected List<Surface> surfaces;
         protected List<Point> points;
         protected List<Point> transformPoints;
@@ -23,6 +24,7 @@ namespace Shape3
         protected Shape3C()
         {
             lines = new List<Line>();
+            invisibleLines = new List<Line>();
             surfaces = new List<Surface>();
             points = new List<Point>();
             transformPoints = new List<Point>();
@@ -188,6 +190,11 @@ namespace Shape3
         public void Unvalidate()
         {
             foreach (var line in lines)
+            {
+                line.Unvalidate();
+            }
+
+            foreach (var line in invisibleLines)
             {
                 line.Unvalidate();
             }

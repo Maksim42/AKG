@@ -54,7 +54,6 @@
     <Compile Include="SDLGeometry\Rotator.cs" />
     <Compile Include="SDLGeometry\Surface.cs" />
     <Compile Include="SDLGeometry\Zbufer.cs" />
-    <Compile Include="SDLGeometry\ZbuferItem.cs" />
     <Compile Include="Shape3\Arrows.cs" />
     <Compile Include="Shape3\Cube.cs" />
     <Compile Include="Shape3\Shape3.cs" />

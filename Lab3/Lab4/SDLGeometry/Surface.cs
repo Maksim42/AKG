@@ -76,27 +76,6 @@ namespace SDLGeometry
             return (p.rX * a + p.rY * b + d) / -c;
         }
 
-        // ?????
-        //public void Draw()
-        //{
-        //    var linePoints = new List<Point>();
-        //    Point[] linePointsCopy;
-
-        //    foreach (var line in lines)
-        //    {
-        //        if (!line.draw)
-        //        {
-        //            linePoints.AddRange(line.Rasterization());
-        //            line.draw = true;
-        //        }
-        //    }
-
-        //    linePointsCopy = new Point[linePoints.Count];
-        //    linePoints.CopyTo(linePointsCopy);
-
-        //    DrawLines(linePointsCopy);
-        //}
-
         /// <summary>
         /// Fill z-bufer
         /// </summary>
@@ -106,10 +85,9 @@ namespace SDLGeometry
             while (borderPoints.Count > 0)
             {
                 Point curent = borderPoints[0];
-
                 var inlinePoints = borderPoints.FindAll((p) => p.rY == curent.rY);
 
-                // if point one in line
+                // check one point in line
                 if (inlinePoints.Count == 1)
                 {
                     var p = inlinePoints.First();
@@ -185,37 +163,5 @@ namespace SDLGeometry
                 p2.rX * (p3.rY * p1.rZ - p1.rY * p3.rZ) +
                 p3.rX * (p1.rY * p2.rZ - p2.rY * p1.rZ));
         }
-
-        // ?????
-        //private void DrawLines(Point[] borderPoint)
-        //{
-        //    int visibleCount = 0;
-        //    bool visible = false;
-            
-            
-        //    //foreach (var p in borderPoint)
-        //    //{
-        //    //    var dep = CalculateDepth(p);
-
-        //    //    if (context.Zbufer.Visible(p, dep))
-        //    //    {
-        //    //        context.DrawPoint(p);
-        //    //    }
-        //    //    else
-        //    //    {
-        //    //        visibleCount += 1;
-        //    //        if (visibleCount >= visibleLength)
-        //    //        {
-        //    //            visible = !visible;
-        //    //            visibleCount = 0;
-        //    //        }
-
-        //    //        if (visible)
-        //    //        {
-        //    //            context.DrawPoint(p);
-        //    //        }
-        //    //    }
-        //    //}
-        //}
     }
 }
