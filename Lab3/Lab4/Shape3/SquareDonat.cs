@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SDLGeometry;
+﻿using SDLGeometry;
+using SDLColor;
 
 namespace Shape3
 {
@@ -312,7 +308,7 @@ namespace Shape3
             s.AddBorder(invisibleLines[18]);
             s.AddLine(lines[15]);
             s.AddLine(lines[3]);
-            // up back
+            // down back
             s = new Surface();
             surfaces.Add(s);
             s.AddBorder(lines[19]);

@@ -8,6 +8,8 @@ namespace Shape3
 {
     class Shape3C
     {
+        public static WindowContext context;
+
         protected List<Line> lines;
         protected List<Line> invisibleLines;
         protected List<Surface> surfaces;
@@ -178,6 +180,8 @@ namespace Shape3
                 surface.Rasterization();
             }
 
+            //context.Zbufer.ColorFill();
+
             foreach (var line in lines)
             {
                 line.Draw();
@@ -199,10 +203,10 @@ namespace Shape3
                 line.Unvalidate();
             }
 
-            foreach (var surface in surfaces)
-            {
-                surface.Unvalidate();
-            }
+            //foreach (var surface in surfaces)
+            //{
+            //    surface.Unvalidate();
+            //}
         }
 
         /// <summary>

@@ -27,13 +27,6 @@ namespace SDLWindow
             mainThread.Start();
         }
 
-        //// ???
-        //public void Shown()
-        //{
-        //    mainThread.Start();
-        //    mainThread.Join();
-        //}
-
         public void Close()
         {
             quit = true;
@@ -53,6 +46,7 @@ namespace SDLWindow
             context = new WindowContext(window, windowWidth, windowHeight);
 
             Line.context = context;
+            Shape3C.context = context;
             Surface.SetContext(context);
 
             InitShapes();
@@ -252,9 +246,8 @@ namespace SDLWindow
             context.UpdateParameters();
             context.Clear();
 
-            SDL.SDL_SetRenderDrawColor(context.Render, 0, 0, 0, 0);
-
-            //context.DrawDotedLine(10, 10, 30, 30);
+            //SDL.SDL_SetRenderDrawColor(context.Render, 0, 0, 0, 0);
+            context.SetColor(SDLColor.Color.Black);
 
             // Draw axis
             context.DrawLine(0, 0, 0, context.Height);

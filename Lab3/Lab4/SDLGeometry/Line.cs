@@ -83,7 +83,7 @@ namespace SDLGeometry
 
             int visibleCount = 0;
             bool visible = false;
-
+            context.SetColor(SDLColor.Color.Black);
 
             foreach (var p in raster)
             {

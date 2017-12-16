@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using SDLWindow;
 
 namespace SDLGeometry
@@ -13,13 +11,13 @@ namespace SDLGeometry
 
         private List<Line> borders;
         private List<Line> lines;
-        private bool valid; // ???
+        private SDLColor.Color color;
         // Surface index
         private double a, b, c, d;
 
-        public Surface()
+        public Surface(SDLColor.Color color = null)
         {
-            valid = false;
+            this.color = color;
             borders = new List<Line>();
             lines = new List<Line>();
         }
@@ -38,11 +36,6 @@ namespace SDLGeometry
         {
             line.AttachSurface(this);
             //lines.Add(line);
-        }
-
-        public void Unvalidate()
-        {
-            valid = false;
         }
 
         /// <summary>
@@ -87,18 +80,6 @@ namespace SDLGeometry
                 Point curent = borderPoints[0];
                 var inlinePoints = borderPoints.FindAll((p) => p.rY == curent.rY);
 
-                // check one point in line
-                if (inlinePoints.Count == 1)
-                {
-                    var p = inlinePoints.First();
-                    var dep = CalculateDepth(p);
-
-                    context.Zbufer.Add(p, dep);
-
-                    borderPoints.Remove(p);
-                    continue;
-                }
-
                 inlinePoints.Sort((p1, p2) =>
                 {
                     if (p1.rX < p2.rX)
@@ -114,7 +95,7 @@ namespace SDLGeometry
                 {
                     var dep = CalculateDepth(p);
 
-                    context.Zbufer.Add(p, dep);
+                    context.Zbufer.Add(p, dep, color);
                     // --FILL--
                     //context.DrawPoint(p);
                 }

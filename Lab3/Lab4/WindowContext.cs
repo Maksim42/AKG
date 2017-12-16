@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using SDL2;
 using SDLGeometry;
+using SDLColor;
 
 namespace SDLWindow
 {
@@ -34,7 +35,7 @@ namespace SDLWindow
             this.window = window;
             contextWidth = Math.Abs(width);
             contextHeight = Math.Abs(height);
-            zbufer = new Zbufer(height, width);
+            zbufer = new Zbufer(this, height, width);
 
             winRender = SDL.SDL_CreateRenderer(window, -1, SDL.SDL_RendererFlags.SDL_RENDERER_ACCELERATED);
         }
@@ -68,6 +69,22 @@ namespace SDLWindow
         {
             SDL.SDL_SetRenderDrawColor(winRender, 255, 255, 255, 255);
             SDL.SDL_RenderClear(winRender);
+        }
+
+        /// <summary>
+        /// Set context draw color
+        /// </summary>
+        /// <param name="r">Red</param>
+        /// <param name="g">Gren</param>
+        /// <param name="b">Blue</param>
+        public void SetColor(byte r, byte g, byte b)
+        {
+            SDL.SDL_SetRenderDrawColor(winRender, r, g, b, 255);
+        }
+
+        public void SetColor(Color color)
+        {
+            SDL.SDL_SetRenderDrawColor(winRender, color.R, color.G, color.B, 255);
         }
 
         /// <summary>

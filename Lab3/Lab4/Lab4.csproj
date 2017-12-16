@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Color.cs" />
     <Compile Include="SDLGeometry\BresenhamApproximation.cs" />
     <Compile Include="SDLGeometry\Line.cs" />
     <Compile Include="MainWindow.cs" />
