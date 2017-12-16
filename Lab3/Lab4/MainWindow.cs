@@ -14,6 +14,7 @@ namespace SDLWindow
         private IntPtr window;
         private int windowWidth, windowHeight;
         private WindowContext context;
+        private Shape3C donut, cube;
         private Shape3C shape;
         
         public MainWindow(int width, int height)
@@ -103,6 +104,16 @@ namespace SDLWindow
                                     case SDL.SDL_Keycode.SDLK_EQUALS:
                                         {
                                             Equals_KeyDownHandler();
+                                            break;
+                                        }
+                                    case SDL.SDL_Keycode.SDLK_1:
+                                        {
+                                            Shape1_KeyDownHandler();
+                                            break;
+                                        }
+                                    case SDL.SDL_Keycode.SDLK_2:
+                                        {
+                                            Shape2_KeyDownHandler();
                                             break;
                                         }
                                 }
@@ -232,6 +243,16 @@ namespace SDLWindow
             shape.Scale = 1;
         }
 
+        private void Shape1_KeyDownHandler()
+        {
+            shape = donut;
+        }
+
+        private void Shape2_KeyDownHandler()
+        {
+            shape = cube;
+        }
+
         // LCtrl key handler
         private void LCtrl_KeyDownHandler() => zRotation = true;
         private void LCtrl_KeyUpHandler() => zRotation = false;
@@ -273,7 +294,10 @@ namespace SDLWindow
 
         private void InitShapes()
         {
-            shape = new SquareDonat(50);
+            cube = new Cube(50);
+            donut = new SquareDonat(50);
+
+            shape = donut;
         }
     }
 }
