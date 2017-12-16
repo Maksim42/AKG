@@ -3,7 +3,6 @@
     class Color
     {
         private byte r, g, b;
-        private bool invisible;
 
         public byte R => r;
         public byte G => g;
@@ -14,7 +13,6 @@
             this.r = r;
             this.g = g;
             this.b = b;
-            invisible = false;
         }
 
         public static Color Black = new Color(0, 0, 0);

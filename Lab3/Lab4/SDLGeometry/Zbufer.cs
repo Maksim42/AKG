@@ -119,7 +119,7 @@ namespace SDLGeometry
                 for (int x = minX; x <= maxX; x++)
                 {
                     bufer[y, x] = backgroundLevel;
-                    colorBufer[y, x] = null;
+                    //colorBufer[y, x] = null;
                 }
             }
 

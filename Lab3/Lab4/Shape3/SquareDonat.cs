@@ -171,7 +171,7 @@ namespace Shape3
             s.AddLine(lines[9]);
             s.AddLine(lines[0]);
             s.AddLine(lines[4]);
-            // midle right
+            //midle right
             s = new Surface();
             surfaces.Add(s);
             s.AddBorder(lines[10]);

@@ -69,7 +69,7 @@ namespace SDLGeometry
                 e = e + 2 * dy;
             }
 
-            yield break;
+            yield return new Point(x, y);
         }
 
 
