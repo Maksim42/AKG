@@ -17,7 +17,7 @@ namespace SDLGeometry.TransformMatrix
             double lx = x;
             double ly = y;
             double lz = z;
-            double angleT = Math.PI - angle;
+            double angleT = angle - Math.PI;
 
             //// Z
             //x = lx * Math.Cos(angleT) + ly * (-Math.Sin(angleT));

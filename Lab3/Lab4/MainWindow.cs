@@ -153,6 +153,17 @@ namespace SDLWindow
                                 }
                                 break;
                             }
+                        case SDL.SDL_EventType.SDL_MOUSEWHEEL:
+                            {
+                                if (sdlEvent.wheel.y == 1)
+                                {
+                                    MouseWhellUpHandler();
+                                } else if (sdlEvent.wheel.y == -1)
+                                {
+                                    MouseWhellDownHandler();
+                                }
+                                break;
+                            }
                     }
                 }
                 Draw();
@@ -280,7 +291,7 @@ namespace SDLWindow
 
         private void TAB_KeyDownHandler()
         {
-            shape.perspective = !shape.perspective;
+            //shape.perspective = !shape.perspective;
         }
 
         // LCtrl key handler
@@ -294,6 +305,30 @@ namespace SDLWindow
         // LShift key handler
         private void LShift_KeyDownHandler() => perspRotation = true;
         private void LShift_KeyUpHandler() => perspRotation = false;
+
+        private void MouseWhellUpHandler()
+        {
+            if (!zRotation)
+            {
+                shape.Distance -= 1;
+            }
+            else
+            {
+                shape.ScreenDistance += 1;
+            }
+        }
+
+        private void MouseWhellDownHandler()
+        {
+            if (!zRotation)
+            {
+                shape.Distance += 1;
+            }
+            else
+            {
+                shape.ScreenDistance -= 1;
+            }
+        }
         #endregion Handlers
 
         private void Draw()
@@ -328,12 +363,11 @@ namespace SDLWindow
 
         private void InitShapes()
         {
-            cube = new Cube(50);
+            cube = new Cube(60);
+            cube.perspective = true;
             donut = new SquareDonat(50);
 
             shape = donut;
-            //shape.ScreenDistance = 100;
-            //shape.Distance = 
         }
     }
 }

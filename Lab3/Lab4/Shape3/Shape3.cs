@@ -244,6 +244,7 @@ namespace Shape3
                 surface.Rasterization();
             }
 
+            // FILL
             //context.Zbufer.ColorFill();
 
             foreach (var line in lines)

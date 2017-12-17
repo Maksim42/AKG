@@ -60,10 +60,11 @@ namespace SDLGeometry
             {
                 bufer[y, x] = depth;
 
-                if (fillColor != null)
-                {
-                    colorBufer[y, x] = fillColor;
-                }
+                // FILL
+                //if (fillColor != null)
+                //{
+                //    colorBufer[y, x] = fillColor;
+                //}
             }
         }
 
@@ -119,6 +120,7 @@ namespace SDLGeometry
                 for (int x = minX; x <= maxX; x++)
                 {
                     bufer[y, x] = backgroundLevel;
+                    // FILL
                     //colorBufer[y, x] = null;
                 }
             }
