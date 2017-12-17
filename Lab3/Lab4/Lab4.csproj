@@ -63,6 +63,10 @@
     <Compile Include="TransformMatrix\Matrix.cs" />
     <Compile Include="TransformMatrix\Move.cs" />
     <Compile Include="TransformMatrix\PartScale.cs" />
+    <Compile Include="TransformMatrix\Perspective.cs" />
+    <Compile Include="TransformMatrix\PerspectiveMove.cs" />
+    <Compile Include="TransformMatrix\RotatePhi.cs" />
+    <Compile Include="TransformMatrix\RotateTheta.cs" />
     <Compile Include="TransformMatrix\RotateX.cs" />
     <Compile Include="TransformMatrix\RotateY.cs" />
     <Compile Include="TransformMatrix\RotateZ.cs" />

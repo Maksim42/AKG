@@ -101,6 +101,11 @@ namespace SDLWindow
                                             LAlt_KeyDownHandler();
                                             break;
                                         }
+                                    case SDL.SDL_Keycode.SDLK_LSHIFT:
+                                        {
+                                            LShift_KeyDownHandler();
+                                            break;
+                                        }
                                     case SDL.SDL_Keycode.SDLK_EQUALS:
                                         {
                                             Equals_KeyDownHandler();
@@ -114,6 +119,11 @@ namespace SDLWindow
                                     case SDL.SDL_Keycode.SDLK_2:
                                         {
                                             Shape2_KeyDownHandler();
+                                            break;
+                                        }
+                                    case SDL.SDL_Keycode.SDLK_TAB:
+                                        {
+                                            TAB_KeyDownHandler();
                                             break;
                                         }
                                 }
@@ -133,6 +143,11 @@ namespace SDLWindow
                                     case SDL.SDL_Keycode.SDLK_LALT:
                                         {
                                             LAlt_KeyUpHandler();
+                                            break;
+                                        }
+                                    case SDL.SDL_Keycode.SDLK_LSHIFT:
+                                        {
+                                            LShift_KeyUpHandler();
                                             break;
                                         }
                                 }
@@ -158,6 +173,7 @@ namespace SDLWindow
         bool animation = false;
         bool zRotation = false;
         bool tRotation = false;
+        bool perspRotation = false;
 
         private void MouseButtonDownHandler(SDL.SDL_Event e)
         {
@@ -196,13 +212,18 @@ namespace SDLWindow
 
             if (mouseDrag)
             {
-                if (!zRotation && !tRotation)
+                if (!zRotation && !tRotation && !perspRotation)
                 {
                     shape.yAngle += rt(startX - moveEvent.x, fullWidth);
                     shape.xAngle += rt(startY - moveEvent.y, fullHeight);
                 }
                 else
                 {
+                    if (perspRotation)
+                    {
+                        shape.phiAngle += rt(startY - moveEvent.y, fullHeight);
+                        shape.tethaAngle += rt(startX - moveEvent.x, fullWidth);
+                    }
                     if (zRotation)
                     {
                         shape.zAngle += rt(startY - moveEvent.y, fullHeight);
@@ -240,6 +261,10 @@ namespace SDLWindow
             shape.X = 0;
             shape.Y = 0;
             shape.Z = 0;
+            shape.Distance = 60;
+            shape.ScreenDistance = 30;
+            shape.phiAngle = 0;
+            shape.tethaAngle = 0;
             shape.Scale = 1;
         }
 
@@ -253,6 +278,11 @@ namespace SDLWindow
             shape = cube;
         }
 
+        private void TAB_KeyDownHandler()
+        {
+            shape.perspective = !shape.perspective;
+        }
+
         // LCtrl key handler
         private void LCtrl_KeyDownHandler() => zRotation = true;
         private void LCtrl_KeyUpHandler() => zRotation = false;
@@ -260,6 +290,10 @@ namespace SDLWindow
         // LAlt key handler
         private void LAlt_KeyDownHandler() => tRotation = true;
         private void LAlt_KeyUpHandler() => tRotation = false;
+
+        // LShift key handler
+        private void LShift_KeyDownHandler() => perspRotation = true;
+        private void LShift_KeyUpHandler() => perspRotation = false;
         #endregion Handlers
 
         private void Draw()
@@ -298,6 +332,8 @@ namespace SDLWindow
             donut = new SquareDonat(50);
 
             shape = donut;
+            //shape.ScreenDistance = 100;
+            //shape.Distance = 
         }
     }
 }

@@ -10,6 +10,7 @@ namespace Shape3
     {
         public static WindowContext context;
 
+        public bool perspective;
         protected List<Line> lines;
         protected List<Line> invisibleLines;
         protected List<Surface> surfaces;
@@ -19,6 +20,10 @@ namespace Shape3
         protected RotateX rotateX;
         protected RotateY rotateY;
         protected RotateZ rotateZ;
+        protected PerspectiveMove movePersp;
+        protected RotatePhi rotatePhi;
+        protected RotateTheta rotateTet;
+        protected Perspective perspectiveM;
         protected Move move;
         protected Scale scale;
         protected Rotator rotator;
@@ -35,9 +40,12 @@ namespace Shape3
             rotateX = new RotateX(0);
             rotateY = new RotateY(0);
             rotateZ = new RotateZ(0);
+            movePersp = new PerspectiveMove(60, 0, 0);
+            rotatePhi = new RotatePhi(0);
+            rotateTet = new RotateTheta(0);
+            perspectiveM = new Perspective(30);
             move = new Move(0, 0, 0);
             scale = new Scale(1);
-            //partScale = new PartScale(1, 1, 1);
         }
 
         #region Position propertys
@@ -168,6 +176,62 @@ namespace Shape3
         }
         #endregion Scale propertys
 
+        #region Perspective propertys
+        public double tethaAngle
+        {
+            get
+            {
+                return rotateTet.angle;
+            }
+
+            set
+            {
+                rotateTet.angle = CheckAngle(value);
+                movePersp.thet = rotateTet.angle;
+            }
+        }
+
+        public double phiAngle
+        {
+            get
+            {
+                return rotatePhi.angle;
+            }
+
+            set
+            {
+                rotatePhi.angle = CheckAngle(value);
+                movePersp.phi = rotatePhi.angle;
+            }
+        }
+
+        public double Distance
+        {
+            get
+            {
+                return movePersp.distance;
+            }
+
+            set
+            {
+                movePersp.distance = value;
+            }
+        }
+
+        public double ScreenDistance
+        {
+            get
+            {
+                return perspectiveM.distance;
+            }
+
+            set
+            {
+                perspectiveM.distance = value;
+            }
+        }
+        #endregion Perspective prpertys
+
         /// <summary>
         /// Draw shape surfaces
         /// </summary>
@@ -228,6 +292,15 @@ namespace Shape3
                     .T(rotateX).T(rotateY).T(rotateZ)
                     .T(move)
                     .T(scale);
+
+                // Perspective transform
+                if (perspective)
+                {
+                    transformPoints[i]
+                        .T(movePersp)
+                        .T(rotateTet).T(rotatePhi)
+                        .T(perspectiveM);
+                }
             }
         }
 
