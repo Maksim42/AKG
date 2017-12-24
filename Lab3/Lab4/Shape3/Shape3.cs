@@ -245,7 +245,7 @@ namespace Shape3
             }
 
             // FILL
-            //context.Zbufer.ColorFill();
+            context.Zbufer.ColorFill();
 
             foreach (var line in lines)
             {

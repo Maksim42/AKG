@@ -93,20 +93,20 @@ namespace SDLGeometry
                 {
                     context.DrawPoint(p);
                 }
-                else
-                {
-                    visibleCount += 1;
-                    if (visibleCount >= visibleLength)
-                    {
-                        visible = !visible;
-                        visibleCount = 0;
-                    }
+                //else
+                //{
+                //    visibleCount += 1;
+                //    if (visibleCount >= visibleLength)
+                //    {
+                //        visible = !visible;
+                //        visibleCount = 0;
+                //    }
 
-                    if (visible)
-                    {
-                        context.DrawPoint(p);
-                    }
-                }
+                //    if (visible)
+                //    {
+                //        context.DrawPoint(p);
+                //    }
+                //}
             }
         }
 
